@@ -1,0 +1,117 @@
+extends ../layouts/main
+
+block content
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Proceso de pago
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a.active() 
+              h3 ¡Felicitaciones, Estás ahorrando #{product.subCategory.co2}Kg de CO2!
+  section.checkout(style="padding-top:25px;")
+    .container
+      .cart-wrapper
+        // cart header
+        .cart-block.cart-block-header.clearfix
+          div
+            span Producto
+          div
+            span &nbsp;
+          div
+            span Tipo
+          .text-right
+            span Precio
+        // cart items
+        .clearfix
+          .cart-block.cart-block-item.clearfix
+            .image
+              a(href='javascript:void(0)')
+                img(src=product.images[0] alt='')
+            .title
+              .h4
+                a(href='javascript:void(0)') #{product.name}
+              div #{product.category.name}
+            .quantity
+              strong #{product.subCategory.name}
+            .price
+              span.final.h3 S/. #{product.price}
+        .note-block(style="padding-top: 20px;")
+          .row(style="margin-top: 20px; border-top: 1px solid #eeeeee;")
+            // === left content ===
+            .col-md-6
+              // === login-wrapper ===
+              .login-wrapper
+                .white-block(style="margin-bottom: 0px;")
+                  // signin
+                  .login-block.login-block-signin
+                    .h4
+                      | Datos de contacto
+                    hr
+                    .row
+                      .col-md-12
+                        .form-horizontal
+                          .form-group
+                            label.col-lg-2.control-label(for='address' style="padding-top: 0") Dirección
+                            .col-lg-10
+                              input.form-control#address(type='text' value=user.address?user.address:'' name='address' placeholder='Ingresa tu dirección' required)
+                          .form-group
+                            label.col-lg-2.control-label(for='inputEmail1' style="padding-top: 0") Teléfono
+                            .col-lg-10
+                              input.form-control#phone(type='text' value=user.phone?user.phone:'' oninput="parsePhone(event)" name='phone' maxlength='15' placeholder='Ingresa teléfono' required)
+                  // /signin
+                  // signup
+              
+              // /login-wrapper
+            // /col-md-6
+            // === right content ===
+            .col-md-6
+              .white-block(style="margin-bottom: 0px;")
+                .h4 Elija el tipo de entrega
+                hr
+                span.checkbox
+                  input#deliveryId1(type='radio' value="Recojo en tienda" name='deliveryType')
+                  label(for='deliveryId1')
+                    | Recojo en tienda
+                span.checkbox
+                  input#deliveryId2(type='radio' value="Deseo que lo lleven a mi casa" name='deliveryType')
+                  label(for='deliveryId2')
+                    | Deseo que lo lleven a mi casa
+          .row
+            .col-xs-12
+              .white-block(style="margin-bottom: 0px; padding-top:0px; padding-bottom:0px;")
+                .col-md-6
+                  p
+                    span.text-warning *
+                    | Es necesario actualizar sus preferencias para completar la compra
+                .col-md-6.text-right
+                  button.btn.btn-main#checkout-btn(data-user=user._id data-id=id data-payment=payment._id)
+                    span.icon.icon-sync
+                    | Actualizar preferencias
+          hr
+          .clearfix
+            .cart-block.cart-block-footer.clearfix
+              div
+                strong 
+                  h3 Total a pagar
+              div
+                .h2.title S/. #{product.price}
+      .clearfix
+        .row
+          .col-xs-6
+            a.btn.btn-clean-dark(href='/')
+              span.icon.icon-chevron-left
+              |  Volver
+          .col-xs-6.text-right
+            button.btn.btn-clean-dark#button-checkout(onclick='setAlert()') Pagar
+            div#checkout
+    // /container
+  script.
+    function parsePhone(event){
+      event.target.value=event.target.value.replace(/[^0-9()+]/g,'');
+    }
+    function setAlert(event){
+      return Swal.fire('Para completar tu compra, es necesario actualizar tus preferencias', '', 'info')
+    }
+
+    

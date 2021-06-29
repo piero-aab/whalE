@@ -1,0 +1,115 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Mis muebles ofertados
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/mis-productos-ofertados') Mis muebles ofertados
+            
+  section.checkout#myOfferedProducts(data-myproducts = products)
+    .container
+      header.hidden
+        h3.h3.title Checkout - Step 1
+      .clearfix
+        .div(style='text-align: center;')
+          a.btn.btn-clean-dark(href='/mis-productos-vendidos' style='margin: 16px')
+            |  Mis muebles vendidos
+          a.btn.btn-main(href='/crear-producto' style='margin: 16px')
+            |  Quiero vender un mueble
+      .container
+        .cart-wrapper
+          //.table-responsive.table-moble-copy(style='padding: 0 10px')
+          .table-responsive.display-table.table-moble-copy(style='padding: 0 10px')
+            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') ¡Estás cerca de comenzar a vender tus muebles!
+            table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") 
+                    td(scope="col") Producto
+                    td(scope="col") Subcategoría
+                    td(scope="col") Estado 
+                    td(scope="col") Precio
+                    td(scope="col" style='min-width: 75px;') Visible
+                    td(scope="col" style='max-width: 140px;')
+                      span CO
+                        sub 2
+                      |  ahorrado
+                    td
+                tbody
+                  tr.cursor-pointer(v-for="(product, index) in products")
+                    td(scope="col" style='width: 15%' @click.prevent='openDetail(product._id)')
+                      img(style='height: 150px; width: 170px; object-fit: contain;' :src='product.images[0]' alt='')
+                    td(scope="col" @click.prevent='openDetail(product._id)')
+                      | {{product.name}}
+                    td(scope="col" @click.prevent='openDetail(product._id)')
+                      | {{product.subCategory.name}}
+                    td(scope="col" @click.prevent='openDetail(product._id)')
+                      | {{product.type}}
+                    td(scope="col" @click.prevent='openDetail(product._id)')
+                      | S/ {{product.price}}
+                    td(scope="col" @click.prevent='openDetail(product._id)')
+                      | {{(product.status == 0) ? 'No' : 'Si'}}
+                    td(scope="col" @click.prevent='openDetail(product._id)' style='max-width: 140px;')
+                      | {{product.subCategory.co2}} de CO₂ ahorrado
+                    td(scope="col")
+                      a.btn.btn-main(:href='"/editar/"+product._id')
+                        | Editar producto
+          // cart header
+          .display-cards
+            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') ¡Estás cerca de comenzar a vender tus muebles!
+            div(v-else)
+              .cart-block.cart-block-header.clearfix.cursor-pointer(style="padding: 15px")
+                div
+                  img(src='' alt='')
+                div.align
+                  span Nombre del mueble
+                div.align
+                  span Estado del mueble
+                div.align
+                  span Estado
+                div.align
+                  span CO2 ahorrado
+                div.align
+                  span Precio
+                //div
+                  span &nbsp;
+                .text-right
+                  span &nbsp;
+              // cart items
+              .clearfix
+                .cart-block.cart-block-item.clearfix(style="padding: 15px" v-for="(product, index) in products")
+                  div(@click='openDetail(product._id)')
+                    .image.img-mb
+                      span
+                        img(:src='product.images[0]' alt='')
+                    .title
+                      .h6
+                        span Nombre: {{product.name}}
+                      div.mt-subcat Subcategoria: {{product.subCategory.name}}
+                    .title.features
+                      span.align Estado: {{product.type}}
+                    .title.features
+                      span.align Visibilidad: {{(product.status == 0) ? 'No' : 'Si'}}
+                    .quantity
+                      span.align(style='color: #44c6b6; text-transform: uppercase; font-weight: 500;') {{product.subCategory.co2}} de CO₂ ahorrado
+                    //.quantity
+                      input.form-control.form-quantity(type='number' value='2')
+                    .price(style='margin-top: 16px;')
+                      span.final.h6.align Precio: S/ {{product.price}}
+                  .price.button-card
+                    span.final.h6.align
+                      a.btn.btn-main(:href='"/editar/"+product._id')
+                        | Editar producto
+                    //a.btn.btn-main(href='#')
+                      | Editar mueble
+                  // delete-this-item
+                  //span.icon.icon-cross.icon-delete

@@ -1,0 +1,102 @@
+extends ../layouts/main
+
+block content
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+      header
+        .container.text-center
+          h2.h2.title Editar mueble
+          ol.breadcrumb.breadcrumb-inverted
+            li
+              a(href='/')
+                span.icon.icon-home
+            li
+              a(href='/mis-productos-ofertados') Mis productos ofertados
+            li
+              a.active(href='javascript: void(0)') Editar mueble
+  section#editProduct.login-wrapper.login-wrapper-page(data-product=product  data-categories=categories)
+    .container
+      .cart-wrapper
+        form#forms.panel.panel-default(method="POST")
+          .panel-heading Editar datos del mueble
+          .panel-body
+            .form-horizontal
+              .form-group
+                label.col-lg-2.control-label(for='name' style="padding-top: 0") ¿Qué mueble venderás?
+                .col-lg-10
+                  input#name.form-control(type='text', placeholder='', name="name", v-model='product.name', autofocus required)
+              .form-group
+                label.col-lg-2.control-label(for='category' style="padding-top: 0") Selecciona la categoría de tu mueble
+                .col-lg-10
+                  select#category.form-control(v-model="categorySelect", name="category", required)
+                    option(value="" disabled) --Elegir--
+                    option(v-for="( category, index ) in categories" :value="category._id") {{ category.name }}
+              .form-group
+                label.col-lg-2.control-label(for='subCategory' style="padding-top: 0") Selecciona la subcategoría de tu mueble
+                .col-lg-10
+                  select#subCategory.form-control(v-model="subCategorySelect" name="subCategory" :disabled="subCategories.length===0" required)
+                    option(value="" disabled) --Elegir--
+                    option(v-for="( subCategory, index ) in subCategories" :value="subCategory._id") {{ subCategory.name }}
+              .form-group
+                label.col-lg-2.control-label(for='basePrice' style="padding-top: 0") ¿Cuál es el precio de tu mueble?
+                .col-lg-10
+                  input#basePrice.form-control(type='number', placeholder='' name="basePrice" min="0" step="0.01" v-model.number="price" required)
+              .form-group
+                label.col-lg-2.control-label(for='price' style="padding-top: 0") Precio Final
+                .col-lg-10
+                  input#price.form-control.colorV(type='number', placeholder='' oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" name="price" required readOnly step="0.01" v-model.number="finalPrice")
+              .form-group
+                label.col-lg-2.control-label(for='type' style="padding-top: 0") ¿Cuál es el estado de tu mueble?
+                .col-lg-10
+                  select#type.form-control(type='text', v-model='product.type' placeholder='' name="type" required)
+                    option(value="" selected hidden) --Elegir--
+                    option(value="¡Usado como nuevo!") ¡Usado como nuevo!
+                    option(value="Buen estado") Buen estado
+                    option(value="Aceptable") Aceptable
+              .form-group
+                label.col-lg-2.control-label(for='description' style="padding-top: 0") Cuéntanos sobre tu mueble
+                .col-lg-10
+                  textarea#description.form-control(type='text', placeholder='', v-model='product.description',name="description" style="resize: vertical", required)
+              .form-group
+                label.col-lg-2.control-label(for='inputEmail7' style="padding-top: 0") Cálculo del CO₂ 
+                .col-lg-10
+                  textarea#inputEmail7.form-control.colorV(type='text',rows="7" placeholder='' style="resize: vertical" disabled) {{ message }}
+              .form-group.text-center
+                label.col-12.text-danger(style="padding: 2rem") Compártenos las fotos de tu mueble, recuerda que podrás subir como máximo 5 y como mínimo 1*
+
+              .form-group(v-for="( image, index ) in images" :image="image" :key="'image'+index")
+                label.col-lg-2.control-label(for='image' style="padding-top: 0") Imagen {{ index+1 }}
+                .col-lg-10.text-center
+                  img(:id="'image_'+index", :src=`image||"/images/vulpus/descarga.jpeg"` style="object-fit: cover; cursor:pointer; max-width:280px" :url=`'hidden_url_'+index` @click="cloudinaryWidget(index)")
+                  input(type="hidden" :id=`'hidden_url_'+index` name="image" :value="image")
+                  button.btn.btn-default(v-if="images.length>1" type='button' @click="deleteImage(index)" style="margin: 1rem") Eliminar
+              .form-group(v-if="images.length<5")
+                .col-lg-12.text-center
+                  button.btn.btn-main(type='button' @click="addImage" style="margin: 0rem") Agregar imagen
+              .form-group(v-if='product.status == 0 || product.status == 1')
+                label.col-lg-2.control-label(for='visible' style="padding-top: 0") Visibilidad de tu mueble
+                .col-lg-10
+                  select#visible.form-control.colorV(type='text', v-model='product.status' placeholder='' name="status" required)
+                    option(value="" selected hidden) --Elegir--
+                    option(value=0) No visible
+                    option(value=1) Visible
+          .panel-heading Editar datos bancarios
+          .panel-body
+            .form-horizontal
+              .form-group
+                label.col-lg-2.control-label(for='bankName' style="padding-top: 0") Nombre del banco
+                .col-lg-10
+                  input#inputEmail1.form-control(type='text', placeholder='Ej:BBVA, BCP, etc.', v-model='product.bankName' name="bankName" required)
+              .form-group
+                label.col-lg-2.control-label(for='bankCCI' style="padding-top: 0") Código de Cuenta Interbancario (CCI)
+                .col-lg-10
+                  input#inputEmail1.form-control(type='text', placeholder='El CCI debe tener 20 carácteres',oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" pattern=".{20,}" minlength="20" maxlength="20" v-model='product.bankCCI' name="bankCCI" required)
+              .form-group
+                label.col-lg-2.control-label(for='bankCC' style="padding-top: 0") Código de Cuenta (CC)
+                .col-lg-10
+                  input#inputEmail1.form-control(type='text', placeholder='El CC debe tener 20 carácteres',oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" pattern=".{20,}" minlength="20" maxlength="20" v-model='product.bankCC' name="bankCC" required) 
+              .form-group
+                .col-lg-12.text-center(style="margin: 2rem")
+                  button.btn.btn-main(type='submit' style="margin: 1rem" @click="validatePhotos") Publicar mueble
+                  a.btn.btn-default(href='/mis-productos-ofertados' style="margin: 1rem") Volver, sin guardar
+
+  //- .has-warning .has-error .has-success .has-success .has-success .has-success

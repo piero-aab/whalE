@@ -1,0 +1,80 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Productos vendidos
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/admin/productos-vendidos') Productos Vendidos
+            
+  section.checkout#soldProducts(data-allProducts = products data-allSellers= sellers)
+    .container
+      header.hidden
+        h3.h3.title Checkout - Step 1
+      .clearfix
+        .form-group.d-flex.justify-content-center.align-items-center#selectcontainer
+          label.col-lg-2.col-md-2#scuak.control-label(for='inputEmail1') Filtrar por vendedor
+          .col-lg-6.col-md-6#select
+            select.form-control#slct(name='sellerFilter' placeholder='Nombre del vendedor' v-model="sellerFilter")
+              option(value="" selected) --Todos--
+              option(v-for="(s, index) in sellers" :value='s._id') {{s.name}}
+            svg
+              use(xlink:href='#select-arrow-down')
+          svg.sprites
+            symbol#select-arrow-down(viewbox='0 0 10 6')
+              polyline(points="1 1 5 5 9 1")
+      .container
+        .cart-wrapper
+          .table-responsive.table-moble-copy(style='padding: 0 10px')
+            table.table.table-hover.mt-5.table-centered.dt-responsive
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") 
+                    td(scope="col") Producto
+                    td(scope="col") Tipo
+                    td(scope="col") Precio
+                    td(scope="col") Vendedor
+                    td(scope="col") Cliente
+                    td
+                tbody
+                  tr(v-if="displayedProducts.length>0" v-for="(product, index) in displayedProducts")
+                    td(scope="col" style='width: 15%')
+                      img(style='width: 100%' :src='product.images[0]' alt='')
+                    td(scope="col")
+                      | {{product.name}}
+                    td(scope="col")
+                      | {{product.type}}
+                    td(scope="col")
+                      | S/.{{product.price}}
+                    td(scope="col")
+                      | {{product.customer.name}}
+                      ul 
+                        li 
+                          p Banco: {{product.bankName||'-'}}
+                        li 
+                          p CCI: {{product.bankCCI||'-'}}
+                        li 
+                          p CC: {{product.bankCC||'-'}}
+                    td(scope="col")
+                      a.btn.btn-main(:href='"/admin/detalle/"+product._id')
+                        | Ver detalle 
+            h2.text-center(v-if="displayedProducts.length==0 && sellerFilter!=''") Su búsqueda no coincidió
+            h2.text-center(v-else-if="products.length==0 && sellerFilter==''") Aún no posee productos vendidos
+          .pagination-wrapper(v-if="displayedProducts.length>0" )
+            ul.pagination
+              li
+                a(v-if="page != 1" @click="page--")
+                  span(aria-hidden='true') &laquo;
+              li(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                a() {{pageNumber}}
+              li
+                a(v-if="page < pages.length" @click="page++")
+                  span(aria-hidden='true') &raquo;

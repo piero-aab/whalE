@@ -1,0 +1,75 @@
+/* Custom Styles */
+
+.products article .figure-grid .text {
+  background: rgb(68 198 182);
+  color: white;
+}
+
+.products article .figure-grid .text:hover{
+  background: dimgray;
+  transition: 1s;
+}
+
+.products article .figure-grid .text a {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .products article .figure-grid .text {
+    padding: 10px 20px;
+  }
+}
+
+.btn.btn-add:hover:before {
+  color: #ffffff;
+}
+
+.btn.btn-add a {
+  color: #ffffff;
+}
+
+@media (min-width: 768px){
+  .products article .label {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.products article .label {
+  padding: 0.5em .6em .5em;
+  border-radius: 0px;
+}
+
+@media (min-width: 768px){
+  .products article .image {
+    padding-top: 5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.products article .info {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .products article .btn-add {
+    display: block;
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .btn.btn-add:before {
+    background-color: dimgray;
+  }
+
+  .products article .info > span {
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}

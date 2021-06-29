@@ -1,0 +1,84 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Productos ofertados
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/admin/productos-ofertados') Productos ofertados
+            
+  section.checkout#allProducts(data-allProducts = products)
+    .container
+      header.hidden
+        h3.h3.title Checkout - Step 1
+      .clearfix
+        .div(style='text-align: center;')
+          a.btn.btn-clean-dark(href='/admin/productos-vendidos' style='margin: 16px')
+            |  Muebles vendidos
+          a.btn.btn-main(href='/admin/exportar/usuarios' style='margin: 16px')
+            |  Exportar usuarios
+      .container
+        .cart-wrapper
+          .table-responsive.table-moble-copy(style='padding: 0 10px')
+            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') Los clientes no tienen productos ofertados aún
+            table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") 
+                    td(scope="col") Producto
+                    td(scope="col") Subcategoría
+                    td(scope="col") Estado 
+                    td(scope="col") Precio
+                    td(scope="col") Visible
+                    td(scope="col" style='max-width: 140px;')
+                      span CO
+                        sub 2
+                      |  ahorrado
+                    td
+                tbody
+                  tr(v-for="(product, index) in products")
+                    td(scope="col" style='width: 15%')
+                      img(style='height: 150px; width: 170px; object-fit: contain;' :src='product.images[0]' alt='')
+                    td(scope="col")
+                      | {{product.name}}
+                    td(scope="col")
+                      | {{product.subCategory.name}}
+                    td(scope="col")
+                      | {{product.type}}
+                    td(scope="col")
+                      | S/.{{product.price}}
+                    td(scope="col")
+                      | {{(product.status == 0) ? 'No' : 'Si'}}
+                    td(scope="col" style='max-width: 140px;')
+                      | {{product.subCategory.co2}} de CO₂ ahorrado
+                    td(scope="col")
+                      div(style="position:relative")
+                      label.dropdown-btn
+                        .dd-button
+                          | Opciones
+                        input#test.dd-input(type='checkbox')
+                        ul.dd-menu(v-if='index != products.length-1')
+                          li
+                            a(:href='"/admin/eliminar/"+product._id') Eliminar producto
+                          li
+                            a(:href='"/admin/detalle/"+product._id') Ver detalle
+                        ul.dd-menu(v-else style='top: -210%')
+                          li
+                            a(:href='"/admin/eliminar/"+product._id') Eliminar producto
+                          li
+                            a(:href='"/admin/detalle/"+product._id') Ver detalle
+  script.
+    let deleted = !{JSON.stringify(deleted)};
+
+    console.log(deleted)
+    //- if() {
+    //-   badForm('Debe llenar el campo correctamente.');
+    //- }

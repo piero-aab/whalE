@@ -1,0 +1,112 @@
+extends ../layouts/main
+
+block content
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Mis productos ofertados
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/mis-productos-ofertados') Mis productos ofertados
+  section.checkout
+    .container
+      .clearfix
+        .row
+          .col-xs-8
+            span.h2.title ¡Tu pedido está completo!
+          .col-xs-4.text-right
+            a.btn.btn-main(onclick='window.print()')
+              span.icon.icon-printer
+              |  Imprimir
+      // ========================  Payment ========================
+      .cart-wrapper
+        .note-block
+          .row
+            // === left content ===
+            .col-md-6
+              .white-block
+                .h4 Datos de comprador
+                hr
+                .row
+                  .col-md-6
+                    .form-group
+                      strong Nombre
+                      br
+                      span #{buyer.name}
+                  .col-md-6
+                    .form-group
+                      strong Email
+                      br
+                      span #{buyer.email}
+                  .col-md-6
+                    .form-group
+                      strong Teléfono
+                      br
+                      span #{payment.contact.phone}
+              // /col-md-6
+            // === right content ===
+            .col-md-6
+              .white-block
+                .h4 Detalle de entrega
+                hr
+                .row
+                  .col-md-6
+                    .form-group
+                      strong Dirección
+                      br
+                      span #{payment.contact.address}
+                  .col-md-6
+                    .form-group
+                      strong Tipo de entrega
+                      br
+                      span #{payment.contact.deliveryType}
+                  .col-md-6
+                    .form-group
+                      strong Fecha de orden
+                      br
+                      span #{date}
+      // ========================  Cart wrapper ========================
+      .cart-wrapper
+        // cart header
+        .cart-block.cart-block-header.clearfix
+          div
+            span Producto
+          div
+            span &nbsp;
+          div
+            span Tipo
+          .text-right
+            span Precio
+        // cart items
+        .clearfix.pb-2
+          .cart-block.cart-block-item.clearfix
+            .image
+              a(href='product.html')
+                img(src=product.images[0] alt='')
+            .title
+              .h4
+                a(href='product.html') #{product.name}
+              div #{product.category.name}
+            .quantity
+              strong #{product.subCategory.name}
+            .price
+              span.final.h3 S/. #{product.price}
+        .clearfix.pt-2
+          .cart-block.cart-block-footer.clearfix
+            div
+              strong 
+                h3 Total cancelado
+            div
+              .h2.title S/. #{product.price}
+      .clearfix
+        .row
+          .col-xs-8
+            span.h2.title ¡A un paso de obtener tu mueble!
+          .col-xs-4.text-right
+            a.btn.btn-main(onclick='window.print()')
+              span.icon.icon-printer
+              |  Imprimir
+    // /container

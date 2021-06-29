@@ -1,0 +1,130 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Detalle de producto
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a(href='/admin/productos-ofertados') Productos ofertados
+          li
+            a(href='/admin/productos-vendidos') Productos vendidos
+  section.product#productDetail(data-productDetail = product)
+    .main
+      .container
+        .row.product-flex
+          // product flex is used only for mobile order
+          // on mobile 'product-flex-info' goes bellow gallery 'product-flex-gallery'
+          .col-md-4.col-sm-12.product-flex-info
+            .clearfix
+              // === product-title ===
+              h1.title(data-title=`${product.category.name}` style='margin-top: 16px;')
+                | {{productDetail.name}} 
+                small {{subCategory.name}}
+              .clearfix
+                // === price wrapper ===
+                .price
+                  span.h3
+                    | S/ {{productDetail.price}} 
+                    //small $ 2999,00
+                hr
+                // === info-box ===
+                .info-box
+                  span
+                    strong Categoría
+                  span {{category.name}}
+                // === info-box ===
+                .info-box
+                  span
+                    strong Subcategoría
+                  span {{subCategory.name}}
+                // === info-box ===
+                .info-box
+                  span
+                    strong Estado del mueble
+                  span {{productDetail.type}}
+                // === info-box ===
+                //.info-box
+                  span
+                    strong Disponibilidad
+                  span
+                    i.fa.fa-check-square-o
+                    |  En stock
+                  span.hidden
+                    i.fa.fa-truck
+                    |  Sin stock
+                hr
+                .info-box
+                  span
+                    i.added(style='color: #44c6b6; font-size: 18px; font-style: normal !important;')
+                      i.fa.fa-envira
+                      |  ¡Estas ahorrando {{subCategory.co2}} Kg de CO₂!
+                div(style='margin-left: 30px; font-size: 13px;')
+                  .info-box
+                    span
+                      i.added(style='color: #44c6b6; font-style: normal !important;')
+                        |  Esto equivale a {{subCategory.carsRemovedxday}} autos eliminados de circulación durante el día,
+                  .info-box
+                    span
+                      i.added(style='color: #44c6b6; font-style: normal !important;')
+                        |  a {{subCategory.cottonTshirt}} camisetas de algodón,
+                  .info-box
+                    span
+                      i.added(style='color: #44c6b6; font-style: normal !important;')
+                        |  a {{subCategory.savedWater}} litros de agua ahorrada
+                  .info-box
+                    span
+                      i.added(style='color: #44c6b6; font-style: normal !important;')
+                        |  y {{subCategory.treeCo2xday}} árboles absorviendo CO₂ en un día.
+              // /clearfix
+            // /product-info-wrapper
+          // /col-md-4
+          // === product item gallery ===
+          .col-md-8.col-sm-12.product-flex-gallery.pd-carrousel
+            // === add to cart ===
+            //button.btn.btn-buy(type='submit' data-text='Pagar')
+            // === product gallery ===
+            .owl-product-gallery.open-popup-gallery
+              div(v-for="(image, index) in productDetail.images")
+                a(:href='image')
+                  img.carrousel-modify(:src='image' alt='' height='500')
+              //a(href='assets/images/product-2.png')
+                img(src='assets/images/product-2.png' alt='' height='500')
+              //a(href='assets/images/product-3.png')
+                img(src='assets/images/product-3.png' alt='' height='500')
+              //a(href='assets/images/product-4.png')
+                img(src='assets/images/product-4.png' alt='' height='500')
+    .info
+      .container
+        .row
+          // === nav-tabs ===
+          .col-md-12
+            //ul.nav.nav-tabs(role='tablist')
+              li(role='presentation')
+                a(href='#design' aria-controls='design' role='tab' data-toggle='tab')
+                  i.icon.icon-sort-alpha-asc
+                  span Specification
+            // === tab-panes ===
+            .tab-content
+              // ============ tab #Specification ============
+              #design.tab-pane.active(role='tabpanel')
+                .content
+                  .row
+                    .col-md-12
+                      h3 Descripción
+                      p
+                      | {{productDetail.description}}
+                  // /row
+                // /content
+              // /tab-pane
+            // /tab-content
+        // /row
+      // /container
+    // /info

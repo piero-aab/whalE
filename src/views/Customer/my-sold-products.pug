@@ -1,0 +1,106 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Mis muebles vendidos
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/mis-productos-vendidos') Mis muebles vendidos
+            
+  section.checkout#mySoldProducts(data-mySoldProducts = products)
+    .container
+      header.hidden
+        h3.h3.title Checkout - Step 1
+      .clearfix
+        .div(style='text-align: center;')
+          a.btn.btn-clean-dark(href='/mis-productos-ofertados' style='margin: 16px')
+            |  Mis muebles ofertados
+          a.btn.btn-main(href='/crear-producto' style='margin: 16px')
+            |  Quiero vender un mueble
+      .container
+        .cart-wrapper
+          //.table-responsive.table-moble-copy(style='padding: 0 10px')
+          .table-responsive.display-table.table-moble-copy(style='padding: 0 10px')
+            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') ¡Estás cerca de comenzar a vender tus muebles!
+            table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") 
+                    td(scope="col") Producto
+                    td(scope="col") Subcategoría
+                    td(scope="col") Estado 
+                    td(scope="col") Precio
+                    td(scope="col") Comprador
+                tbody
+                  tr(v-for="(product, index) in displayedProducts")
+                    td(scope="col" style='width: 15%')
+                      img(style='height: 150px; width: 170px; object-fit: contain;' :src='product.images[0]' alt='')
+                    td(scope="col")
+                      | {{product.name}}
+                    td(scope="col")
+                      | {{product.subCategory.name}}
+                    td(scope="col")
+                      | {{product.type}}
+                    td(scope="col")
+                      | S/ {{product.price}}
+                    td(scope="col")
+                      | {{product.buyer ? product.buyer.name : ''}}
+          // cart header
+          .display-cards
+            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') ¡Estás cerca de comenzar a vender tus muebles!
+            div(v-else)
+              .cart-block.cart-block-header.clearfix(style="padding: 15px")
+                div
+                  img(src='' alt='')
+                div.align
+                  span Nombre del mueble
+                div.align
+                  span Estado del mueble
+                div.align
+                  span Estado
+                div.align
+                  span Comprador
+                div.align
+                  span Precio
+                //div
+                  span &nbsp;
+                .text-right
+                  span &nbsp;
+              // cart items
+              .clearfix
+                .cart-block.cart-block-item.clearfix(style="padding: 15px" v-for="(product, index) in displayedProducts") 
+                  .image.img-mb
+                    span
+                      img(:src='product.images[0]' alt='')
+                  .title
+                    .h6
+                      span Nombre: {{product.name}}
+                    div.mt-subcat Subcategoria: {{product.subCategory.name}}
+                  .title.features
+                    span.align Estado: {{product.type}}
+                  .title
+                    span.align(style='word-break: break-word;') Comprador: {{product.buyer ? product.buyer.name : ''}}
+                  //.quantity
+                    input.form-control.form-quantity(type='number' value='2')
+                  .price(style='float: right;')
+                    span.final.h6.align Precio: S/ {{product.price}}
+                  // delete-this-item
+                  //span.icon.icon-cross.icon-delete
+          .pagination-wrapper(v-if="displayedProducts.length>0" )
+            ul.pagination
+              li
+                a(v-if="page != 1" @click="page--")
+                  span(aria-hidden='true') &laquo;
+              li(:class="page == pageNumber? 'active':'' " v-for="pageNumber in pages.slice(page==1?page-1:page-2, page==1?page+4:page+3)" @click="page = pageNumber" :key="pageNumber")
+                a() {{pageNumber}}
+              li
+                a(v-if="page < pages.length" @click="page++")
+                  span(aria-hidden='true') &raquo;

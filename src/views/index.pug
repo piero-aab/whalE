@@ -1,0 +1,308 @@
+extends ./layouts/main
+
+block content
+  section#page-home.header-content
+    .owl-slider.owl-slider-fullscreen
+      // === slide item ===
+      .item(style='background-image:url(images/vulpus/FOTO1.webp)')
+        .dark-img 
+          .box
+            .container.text-center
+              h2.title.animated.h1(data-animation='fadeInDown') ¡Bienvenido a Vulpus!
+              .animated(data-animation='fadeInUp' style='font-size: 20px;')
+                | Primera plataforma que facilita y promueve el reúso de muebles en el Perú. 
+                //br
+                //|  Clean design &amp; reponsive
+                //|                                 layout. Google fonts integration
+      // === slide item ===
+      .item(style='background-image:url(images/vulpus/FOTO2.webp)')
+        .dark-img 
+          .box
+            .container.text-center
+              h2.title.animated.h1(data-animation='fadeInDown') ¡Dale uso a los muebles que ya no usas!
+              .animated(data-animation='fadeInUp' style='font-size: 20px;') Y recupera parte de tu dinero invertido.
+              //.animated(data-animation='fadeInUp') Furniture category icon fonts!
+              //.animated(data-animation='fadeInUp')
+                a.btn.btn-clean(href='category.html') Get insipred
+      // === slide item ===
+      .item(style='background-image:url(images/vulpus/FOTO3.webp)')
+        .dark-img 
+          .box
+            .container.text-center
+              h2.title.animated.h1(data-animation='fadeInDown')
+                | ¡Renueva tus muebles con solo un CLICK!
+              .desc.animated(data-animation='fadeInUp' style='font-size: 20px;')
+                | Y ahorra una media de S/500.00 mensual.
+              //.desc.animated(data-animation='fadeInUp')
+                | Bunch of typography effects.
+              //.animated(data-animation='fadeInUp')
+                a.btn.btn-clean(href='https://themeforest.net/item/mobel-furniture-website-template/20382155' target='_blank') Buy this template
+      // === slide item ===
+      .item(style='background-image:url(images/vulpus/FOTO4.webp)')
+        .dark-img 
+          .box
+            .container.text-center
+              h2.title.animated.h1(data-animation='fadeInDown')
+                | En Vulpus ganamos TODOS y el planeta.
+              .desc.animated(data-animation='fadeInUp' style='font-size: 20px;')
+                | Conoce tu impacto ambiental con la calculadora CO₂ ¡Mide tu huella de carbono con nosotros!
+              //.desc.animated(data-animation='fadeInUp')
+                | Bunch of typography effects.
+              //.animated(data-animation='fadeInUp')
+                a.btn.btn-clean(href='https://themeforest.net/item/mobel-furniture-website-template/20382155' target='_blank') Buy this template
+    // /owl-slider
+  section.owl-icons-wrapper.owl-icons-frontpage
+    // === header ===
+    header.hidden
+      h2 Product categories
+    .container
+      .owl-icons
+        a(href="#" class="icon-filter" data-filter="typeIdAll")
+            figure
+              i(class=`f-icon f-icon-bookcase`)
+              figcaption Todas
+        each category, i in catSorted
+          // === icon item ===
+          a(href="#" class="icon-filter" data-filter=`${category._id}`)
+            figure
+              i(class=`f-icon f-icon-${icons[i]}`)
+              figcaption #{category.name}
+      // /owl-icons
+    // /container
+  section.products
+    .container
+      header(style='padding-bottom: 2em;')
+        h3.h3.title.text-center Nuestros productos
+      .row
+        // === product-filters ===
+        .col-md-3.col-xs-12
+          .filters
+            // Categorías
+            .filter-box.active
+              .title
+                | Categorías 
+              .filter-content(style='display: block;')
+                span.checkbox
+                  input#typeIdAll(type='radio' name='radiogroup-cat' checked='checked' value='typeIdAll')
+                  label(for='typeIdAll')
+                    | Todas
+                each category, i in catSorted
+                  span.checkbox
+                    input(type='radio' name='radiogroup-cat' id=category._id value=category._id)
+                    label(for=category._id)
+                      | #{category.name}
+            // Subcategoría
+            .filter-box.active
+              .title
+                | Subcategorías 
+              #subcategories.filter-content(style='display: block;')
+            // /filter-box
+            // close filters on mobile / update filters
+            .toggle-filters-close.btn.btn-main#filter-btn(onclick='filter()')
+              | Filtrar
+          // /filters
+        // product items
+        .col-md-9.col-xs-12
+          #products-container.row
+          #pagination-wrapper.pagination-wrapper
+            ul.pagination
+              li
+                a#btn-prev(href="javascript:prevPage()" aria-label='Previous')
+                  span(aria-hidden='true') «
+              li.active
+                a#page
+              li
+                a#btn-next(href="javascript:nextPage()" aria-label='Next')
+                  span(aria-hidden='true') »
+
+  style(scoped='').
+
+    .dark-img {
+      height: 100%;
+      top: 50%;
+      background: rgba(0,0,0, 0.5);
+      -moz-transition: all .2s linear;
+      -webkit-transition: all .2s linear;
+      -ms-transition: all .2s linear;
+      -o-transition: all .2s linear;
+      transition: all .2s linear;
+    }
+  
+  script(type='text/javascript').
+    // Get the data from the server
+    let categories = !{JSON.stringify(categories)};
+    let subcategories = !{JSON.stringify(subcategories)};
+    let products = !{JSON.stringify(products)};
+
+    let productsPagination = products;
+
+    // Filter by sucategories and category
+    let filter = () => {
+      // Get both radio buttons values
+      let categoryChecked = document.querySelector('input[name="radiogroup-cat"]:checked').value;
+      
+      let subcategoryChecked = null
+      if (categoryChecked != 'typeIdAll') {
+        subcategoryChecked = document.querySelector('input[name="radiogroup-subcat"]:checked').value;
+      }
+
+      // Get the products
+      let productsResult;
+      if (categoryChecked == 'typeIdAll') {
+        productsResult = products;
+      } else if (subcategoryChecked == 'subcatIdAll' || subcategoryChecked == null) {
+        productsResult = products.filter(product => product.category == categoryChecked);
+      } else {
+        productsResult = products.filter(product => product.category == categoryChecked && product.subCategory._id == subcategoryChecked);
+      }
+
+      let html = '';
+      let paginationWrapper = document.getElementById('pagination-wrapper');
+      let productsContainer = document.getElementById('products-container');
+      if (productsResult.length > 0) {
+        productsPagination = productsResult;
+        paginationWrapper.classList.remove('hidden');
+        changePage(1, productsPagination);
+      } else {
+        productsPagination = [];
+        html = `<div class="alert alert-success text-center" role="alert">
+                  No se encontraron resultados.
+                </div>`;
+        paginationWrapper.classList.add('hidden');
+        productsContainer.innerHTML = html;
+      }
+    }
+
+    // Pagination
+    let currentPage = 1;
+    let recordsPerPage = 10;
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        changePage(currentPage, productsPagination);
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < numPages(productsPagination)) {
+        currentPage++;
+        changePage(currentPage, productsPagination);
+      }
+    }
+
+    function changePage(page, products) {
+      let btn_next = document.getElementById("btn-next");
+      let btn_prev = document.getElementById("btn-prev");
+      let listing_table = document.getElementById("products-container");
+      let page_span = document.getElementById("page");
+  
+      // Validate page
+      if (page < 1) page = 1;
+      if (page > numPages(products)) page = numPages(products);
+
+      listing_table.innerHTML = "";
+      for (let i = (page-1) * recordsPerPage; i < (page * recordsPerPage) && i < products.length; i++) {
+        listing_table.innerHTML += `<div class="col-md-6 col-xs-12 col-sm-6" style="padding-right: 2em; padding-left: 2em;">
+                                      <article style="max-width: 460px; margin: 1rem auto;">
+                                        <div class="info">
+                                          <span>
+                                            <a href='/detalle/${products[i]._id}' data-title="Ver producto">
+                                              <i class="icon icon-eye"></i>
+                                            </a>
+                                          </span>
+                                        </div>
+                                        <div class="btn btn-add">
+                                          <a href="/producto/${products[i]._id}/comprar" data-title="Comprar producto">
+                                            <i class="icon icon-store"></i>
+                                          </a>
+                                        </div>
+                                        <div class="figure-grid">
+                                          <span class="label label-info">CO2 Ahorrado: ${products[i].subCategory.co2} kg</span>
+                                          <div class="image">
+                                            <a href='/detalle/${products[i]._id}'>
+                                              <img src="${products[i].images[0]}" alt="" width="334" height="250">
+                                            </a>
+                                          </div>
+                                          <div class="text">
+                                            <h2 class="title h4">
+                                              ${products[i].name}
+                                            </h2>
+                                            <sup>S/ ${products[i].price.toFixed(2)}</sup>
+                                          </div>
+                                        </div>
+                                      </article>
+                                    </div>`;
+      }
+      page_span.innerHTML = page + "/" + numPages(products);
+
+      if (page == 1) {
+        btn_prev.style.visibility = "hidden";
+      } else {
+        btn_prev.style.visibility = "visible";
+      }
+
+      if (page == numPages()) {
+        btn_next.style.visibility = "hidden";
+      } else {
+        btn_next.style.visibility = "visible";
+      }
+    }
+
+    function numPages(productsPagination) {
+      return Math.ceil(productsPagination.length / recordsPerPage);
+    }
+
+    // Load products
+    window.onload = function() {
+      changePage(1, productsPagination);
+    };
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Add subcategories
+      let subcategoriesContainer = document.getElementById('subcategories');
+      let radioCategories = document.getElementsByName('radiogroup-cat');
+      for (let i = 0, max = radioCategories.length; i < max; i++) {
+        radioCategories[i].onchange = function() {
+          if (this.value == 'typeIdAll') {
+            subcategoriesContainer.innerHTML = '';
+          } else {
+            let subcategoriesResult = categories.filter(category => category._id == this.value)[0].subcategories;
+            let html = `<span class='checkbox'>
+                          <input id="subcatIdAll" type="radio" name="radiogroup-subcat" value='subcatIdAll' checked>
+                          <label for="subcatIdAll">Todas</label>
+                        </span>`;
+            for (let i = 0; i < subcategoriesResult.length; i++) {
+              html += `<span class='checkbox'>
+                        <input id='${subcategoriesResult[i]._id}' type='radio' name='radiogroup-subcat' value='${subcategoriesResult[i]._id}'>
+                        <label for='${subcategoriesResult[i]._id}'>${subcategoriesResult[i].name}</label>
+                      </span>
+                      `;
+            }
+            subcategoriesContainer.innerHTML = html;
+          }
+        }
+      }
+
+      let iconsFilter = document.getElementsByClassName('icon-filter');
+
+      for (let i = 0; i < iconsFilter.length; i++) {
+        iconsFilter[i].onclick = (e) => {
+          e.preventDefault();
+          const catFilter = iconsFilter[i].getAttribute('data-filter');
+          const event = new Event("change");
+          const element = document.getElementById(catFilter);
+          document.getElementById(catFilter).checked = true;
+          element.dispatchEvent(event);
+          document.getElementById('subcatIdAll').checked = true;
+          if(catFilter=="typeIdAll"){
+            document.getElementById("filter-btn").click();
+          }
+          $('html,body').animate({
+            scrollTop: $('section.products').offset().top
+          }, 800);
+
+          filter();
+        }
+      }
+    });

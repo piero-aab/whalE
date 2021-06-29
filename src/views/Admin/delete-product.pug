@@ -1,0 +1,43 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Eliminar producto #{product.name}
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a(href='/admin/productos-ofertados') Productos ofertados
+          li
+            a.active Eliminar producto
+            
+  section#deleteProduct
+    .container(style='max-width: 640px;')
+      form(method="POST" onsubmit='return checkForm(this)')
+        .form-group
+          label(for='delete-message') Ingresa el motivo por el que eliminas este producto:*
+          textarea#delete-message.form-control(rows='4' name='message')
+        .text-center
+          a.btn.btn-main(href='/admin/productos-ofertados'  style='margin-right: 1rem;') Cancelar
+          button.btn.btn-main(type='submit' style='margin-left: 1rem;') Eliminar
+
+  script.
+    function checkForm(form){
+
+      let reasonInput = document.getElementById('delete-message').value.trim();
+
+      if(!reasonInput) {
+        event.preventDefault();
+        badForm('Debe llenar el campo correctamente.');
+        return false;
+      }
+      
+      return true;
+    }
+        
