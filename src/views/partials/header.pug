@@ -5,28 +5,27 @@ nav.navbar-fixed
       ul
         // add active class for current page
         li
-          a(href='https://www.facebook.com/vulpusperu/' target="_blank" style='color:white')
+          a(href='https://www.facebook.com/vulpusperu/' target="_blank" style='color:#5853FD')
             i.fa.fa-facebook.fs-20
         li
-          a(href='https://instagram.com/vulpus.pe?igshid=1g30orhd3asfl' target="_blank" style='color:white')
+          a(href='https://instagram.com/vulpus.pe?igshid=1g30orhd3asfl' target="_blank" style='color:#5853FD')
             i.fa.fa-instagram.fs-20
         li
-          a(href='https://www.linkedin.com/company/vulpusperu' target="_blank" style='color:white')
+          a(href='https://www.linkedin.com/company/vulpusperu' target="_blank" style='color:#5853FD')
             i.fa.fa-linkedin.fs-20
         li
-          a(href='https://twitter.com/vulpusperu?s=09' target="_blank" style='color:white')
+          a(href='https://twitter.com/vulpusperu?s=09' target="_blank" style='color:#5853FD')
             i.fa.fa-twitter.fs-20
         if user && (user.type==0 || user.type==1)
           li
-            a.open-login(href='javascript:void(0);' style='color:white')
+            a.open-login(href='javascript:void(0);' style='color:#5853FD')
               i.icon.icon-user.fs-20
     // /navigation-top
     // ==========  Main navigation ==========
     .navigation.navigation-main
       // Setup your logo here
       a.logo(href='/')
-        img.style-logo(style='height: 50px' src='/images/vulpus/Logotipo-blanco_Vulpus_2021.png' alt='')
-        img.style-logo(style='height: 50px; margin-left: -5px;' src='/images/vulpus/Logotipo_nombre2_2021.png' alt='')
+        img.style-logo(style='height: 60px' src='/images/whalE.png' alt='')
       // Mobile toggle menu
       a.open-menu(href='#')
         i.icon.icon-menu
@@ -38,7 +37,7 @@ nav.navbar-fixed
             i.icon.icon-cross
         ul
           li
-            a(href='/') Bienvenido
+            a(href='/') Inicio
           // Multi-content dropdown
           if user && (user.type==1)
             li
@@ -81,7 +80,7 @@ nav.navbar-fixed
           if !user
             li
               a(href='/login')
-                | Vender mueble
+                | Iniciar sesión
       // /floating-menu
     // /navigation-main
     // ==========  Login wrapper ==========
