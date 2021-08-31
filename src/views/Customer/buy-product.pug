@@ -59,11 +59,6 @@ block content
                             label.col-lg-2.control-label(for='inputEmail1' style="padding-top: 0") Teléfono
                             .col-lg-10
                               input.form-control#phone(type='text' value=user.phone?user.phone:'' oninput="parsePhone(event)" name='phone' maxlength='15' placeholder='Ingresa teléfono' required)
-                  // /signin
-                  // signup
-              
-              // /login-wrapper
-            // /col-md-6
             // === right content ===
             .col-md-6
               .white-block(style="margin-bottom: 0px;")
@@ -105,7 +100,7 @@ block content
           .col-xs-6.text-right
             button.btn.btn-clean-dark#button-checkout(onclick='setAlert()') Pagar
             div#checkout
-    // /container
+    // container
   script.
     function parsePhone(event){
       event.target.value=event.target.value.replace(/[^0-9()+]/g,'');

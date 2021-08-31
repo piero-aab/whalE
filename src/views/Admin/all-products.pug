@@ -28,7 +28,7 @@ block content
       .container
         .cart-wrapper
           .table-responsive.table-moble-copy(style='padding: 0 10px')
-            h2(v-if='products.length == 0' style='text-align: center; margin: 26px;') Los clientes no tienen productos ofertados aún
+            h4(v-if='products.length == 0' style='text-align: center; margin: 26px;') Los clientes no tienen productos ofertados aún
             table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
                 thead
                   tr(style='font-weight: 500;')
@@ -79,6 +79,3 @@ block content
     let deleted = !{JSON.stringify(deleted)};
 
     console.log(deleted)
-    //- if() {
-    //-   badForm('Debe llenar el campo correctamente.');
-    //- }

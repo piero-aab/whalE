@@ -67,7 +67,7 @@ block content
                       a.btn.btn-main(:href='"/admin/detalle/"+product._id')
                         | Ver detalle 
             h2.text-center(v-if="displayedProducts.length==0 && sellerFilter!=''") Su búsqueda no coincidió
-            h2.text-center(v-else-if="products.length==0 && sellerFilter==''") Aún no posee productos vendidos
+            h4.text-center(v-else-if="products.length==0 && sellerFilter==''") Aún no hay productos vendidos
           .pagination-wrapper(v-if="displayedProducts.length>0" )
             ul.pagination
               li

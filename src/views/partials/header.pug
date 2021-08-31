@@ -43,32 +43,10 @@ nav.navbar-fixed
             li
               a(href='/mis-productos-ofertados')
                 | Mis muebles 
-                //span.open-dropdown
-                  i.fa.fa-angle-down
-              //.navbar-dropdown.navbar-dropdown-single
-                .navbar-box
-                  // box-2 (without 'box-1', box-2 will be displayed as full width)
-                  .box-2
-                    .box.clearfix
-                      //ul
-                        li.label Shop
-                        li
-                          a(href='products-grid.html') Products grid
-                        li
-                          a(href='products-list.html') Products list
-                        li
-                          a(href='category.html') Products intro
-                        li
-                          a(href='products-topbar.html') Products topbar
-                        li
-                          a(href='product.html') Product overview
             li
               a(href='/mis-productos-vendidos')
                 | Mis ventas
-            //li
-              a(href='/')
-                | En oferta
-            // Furniture icons in dropdown
+
           if user && (user.type==0)
             li
               a(href='/admin/productos-vendidos')
@@ -76,27 +54,15 @@ nav.navbar-fixed
             li
               a(href='/admin/productos-ofertados')
                 | En oferta
-            // Furniture icons in dropdown
+
           if !user
             li
               a(href='/login')
                 | Iniciar sesión
-      // /floating-menu
-    // /navigation-main
-    // ==========  Login wrapper ==========
+
     .login-wrapper
-      //form
-        .h4 Sign in
-        .form-group
-          input#exampleInputEmail1.form-control(type='email' placeholder='Email')
-        .form-group
-          input#exampleInputPassword1.form-control(type='password' placeholder='Password')
-        .form-group
-          a.open-popup(href='#forgotpassword') Forgot password?
-          a.open-popup(href='#createaccount') Don&apos;t have an account?
       .h4 Opciones
-      a.btn.btn-block.btn-main(href='/salir') Cerrar sesión
-  // /container
+      a.btn.btn-default(href='/salir') Cerrar sesión
   style(scoped='').
     .style-logo {
       margin: -5px 5px 0;

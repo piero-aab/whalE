@@ -29,7 +29,6 @@ block content
               .login-block.login-block-signin(id='sign-in')
                 .h4
                   | Recuperar Contraseña 
-                  //- a.btn.btn-main.btn-xs.btn-register.pull-right(href='javascript:void(0);') 
                 hr
                 form(method="POST" action="/recuperar")
                   .row
@@ -90,9 +89,6 @@ block content
                       hr
                     .col-md-12
                       button.btn.btn-main.btn-block(type="submit") Registrarme
-              // /signup
-          // /login-wrapper
-        // /col-md-6
 
   script.
     function validatePhone(){
@@ -121,12 +117,5 @@ block content
         form.usagePolicies.focus();
         return false;
       }
-      
-      /*if(!form.privacyPolicies.checked) {
-        event.preventDefault();
-        badForm('Por favor debe aceptar las políticas de privacidad');
-        form.privacyPolicies.focus();
-        return false;
-      }*/
       return true;
     }
