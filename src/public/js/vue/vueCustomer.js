@@ -77,8 +77,8 @@ const createProduct = Vue.createApp({
       let myWidget = cloudinary.createUploadWidget(
       {
         // cambiar las credenciales al subir a producción
-        api_key:"562657446657523",
-        cloudName: 'vulpus',
+        api_key:"953288641213821",
+        cloudName: 'whale-unmsm',
         uploadPreset: 'fntocyvv',
         multiple: false
       },(error, result) => {
@@ -279,8 +279,8 @@ const editProduct = Vue.createApp({
       let myWidget = cloudinary.createUploadWidget(
       {
         // cambiar las credenciales al subir a producción
-        api_key:"562657446657523",
-        cloudName: 'vulpus',
+        api_key:"953288641213821",
+        cloudName: 'whale-unmsm',
         uploadPreset: 'fntocyvv',
         multiple: false
       },(error, result) => {

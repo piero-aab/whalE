@@ -1,5 +1,5 @@
 {
-  "name": "vulpus",
+  "name": "whalE",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Starter-Team/Vulpus.git"
+    "url": "git+https://github.com/piero-aab/whalE.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Starter-Team/Vulpus/issues"
+    "url": "https://github.com/piero-aab/whalE/issues"
   },
-  "homepage": "https://github.com/Starter-Team/Vulpus#readme",
+  "homepage": "https://github.com/piero-aab/whalE#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "connect-mongo": "^3.2.0",

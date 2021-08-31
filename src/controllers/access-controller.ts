@@ -116,16 +116,16 @@ class AccessController {
       const {headers} = req;
       const token: string = await this.forgotUser(email);
 
-      const subject: string ="Vulpus: Recupera tu contraseña"
+      const subject: string ="WhalE: Recupera tu contraseña"
 
       const text: string = `
         Hola,\n\n
         Hemos recibido su solicitud de cambio de contraseña. Este correo electrónico contiene la información que necesita para cambiar su contraseña.\n\n
         Haga clic en este enlace para ingresar su nueva contraseña: http://${headers.host}/reiniciar/${token}\n\n
         Atentamente,
-        Vulpus`
+        El equipo de WhalE`
 
-      const message: string = await plainMailService("no-reply@starter.pe",email,subject,text);
+      const message: string = await plainMailService("no-reply@whale.pe",email,subject,text);
 
       req.flash("success", message);
       return res.redirect('/login');
@@ -160,7 +160,7 @@ class AccessController {
       return res.redirect('/login');
   
     }catch(error){
-      req.flash('errors', error);
+      req.flash('errors', error.message);
       return res.redirect('back');
     }
   }
@@ -301,6 +301,7 @@ class AccessController {
     try{
       const exist: boolean = await this.existToken(token);
       if( !exist ) throw "La validación no existe.";
+      console.log(password,confirmPassword);
       let psw = this.validateTwoPasswords(password, confirmPassword);
       let encryptedPsw = this.encryptPassword(psw);
       const response: boolean = await this.updatePasswordReset(encryptedPsw, token);

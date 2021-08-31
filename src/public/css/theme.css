@@ -388,9 +388,9 @@ input, textarea, select {
 }
 
 .btn.btn-clean-dark {
-    background-color: transparent;
-    border-color: rgba(58, 61, 69, 0.5);
-    color: #3a3d45 !important;
+    background-color: #01D213;
+    border-color: #01D213;
+    color: #ffffff !important;
 }
 
 .btn.btn-clean-dark:hover {
@@ -419,7 +419,19 @@ input, textarea, select {
 }
 
 .btn.btn-add:hover:before {
-    background-color: #000000;
+    background-color: #01D213;
+}
+
+.btn-default {
+    color: #ffffff;
+    background-color: #FE4D13;
+    border-color: #FE4D13;
+}
+
+.btn-default:hover {
+    color: #ffffff;
+    background-color: #3a3d45;
+    border-color: #3a3d45;
 }
 
 .btn.btn-add .icon {
@@ -430,7 +442,7 @@ input, textarea, select {
 
 .btn.btn-add:before {
     /* background-color: #5853FD; */
-    background-color:#5853FD;
+    background-color: #5853FD;
     position: absolute;
     content: "";
     width: 200%;
@@ -768,7 +780,7 @@ header .text p:last-child {
 */
 nav {
     position: absolute;
-    background-color: black;
+    background-color: #181340;
     z-index: 9999;
     width: 100%;
     -moz-transition: all 0.5s;
@@ -792,7 +804,7 @@ nav.navbar-fixed {
 
 nav.navbar-default {
     position: relative;
-    background-color: black;
+    background-color: #181340;
 }
 
 nav.navbar-sticked {
@@ -2173,14 +2185,14 @@ nav .cart-wrapper.open {
 }
 
 .pagination-wrapper .pagination > li > a:hover{
-    background-color: black;
+    background-color: #181340;
 }
 
 .pagination-wrapper .pagination .active > a, .pagination-wrapper .pagination .active > a:hover, .pagination-wrapper .pagination .active > a:focus,
 .pagination-wrapper .pagination .active > span,
 .pagination-wrapper .pagination .active > span:hover,
 .pagination-wrapper .pagination .active > span:focus {
-    background-color: black;
+    background-color: #181340;
 }
 
 /*  
@@ -2545,7 +2557,7 @@ nav .cart-wrapper.open {
     position: relative;
     display: inline-block;
     padding: 0 5px;
-    background-color: dimgray;
+    background-color: #5853FD;
     color: white;
     text-align: center;
     border-radius: 30px;
@@ -2562,7 +2574,7 @@ nav .cart-wrapper.open {
 }
 
 .products article .info a:hover {
-    background-color: #000000;
+    background-color: #01D213;
     color: white;
 }
 
@@ -3987,7 +3999,7 @@ nav .cart-wrapper.open {
 }
 
 .comments .comment-add .btn-circle {
-    background-color: black;
+    background-color: #181340;
     color: white;
 }
 
@@ -4433,7 +4445,7 @@ nav .cart-wrapper.open {
 }
 
 .popup-main .popup-buttons a:hover {
-    background-color: black;
+    background-color: #181340;
     border-color: black;
     color: white;
 }
@@ -4969,7 +4981,7 @@ nav .cart-wrapper.open {
 }
 
 .step-wrapper .stepper > ul > li.active:before {
-    background-color: black;
+    background-color: #181340;
 }
 
 .step-wrapper .stepper > ul > li.active span {

@@ -130,7 +130,7 @@ class CustomerController {
             const buyer = await User.findByIdAndUpdate(req.user._id,{$push:{purchases:productId}})
             await User.findByIdAndUpdate(customerId,{$push:{sales:productId}})
             const date = await formatDate(today)
-            const subject1 = `Vulpus - Detalle de tu compra`
+            const subject1 = `WhalE - Detalle de tu compra`
             const text1 = `<html>
                 <body>
                   <p><strong>¡Tu pedido está completo, ${req.user.name}!</strong></p>
@@ -157,10 +157,10 @@ class CustomerController {
                   <span style="margin-left: 50px;">Fecha: ${date?date:''}</span>
                   <br>
                   <span style="margin-left: 50px;">Total cancelado: ${product && product.price?product.price:''} nuevos soles</span>
-                  <p><strong>El equipo de Vulpus</strong></p>
+                  <p><strong>El equipo de WhalE</strong></p>
                 </body>
               </html>`
-            const subject2 = `Vulpus - ¡Tu producto fue vendido!`
+            const subject2 = `WhalE - ¡Tu mueble fue vendido!`
             const text2 =  `<html>
               <body>
                 <p><strong>¡Felicidades, ${product && product.customer?product.customer.name:''}, tu producto ha sido vendido!</strong></p>
@@ -170,7 +170,7 @@ class CustomerController {
                 <br>
                 <span style="margin-left: 50px;">Precio a depositar: ${product && product.basePrice?product.basePrice:''} nuevos soles</span>
                 <br>
-                <span style="margin-left: 50px;">Precio con comisión de Vulpus: ${product && product.price?product.price:''} nuevos soles</span>
+                <span style="margin-left: 50px;">Precio con comisión de WhalE: ${product && product.price?product.price:''} nuevos soles</span>
                 <br>
                 <span style="margin-left: 50px;">Fecha de compra: ${date?date:''}</span>
                 <p>Ahora, ponte en contacto con el comprador del producto</p>
@@ -186,11 +186,11 @@ class CustomerController {
                 <br>
                 <span style="margin-left: 50px;">Dirección de entrega: ${payment && payment.contact?payment.contact.address:''}</span>
             
-                <p>Gracias por ser parte de la comunidad Vulpus, juntos estamos generando un cambio sostenible gracias al reúso de muebles.</p>
-                <P>Este mensaje es para informarte que el equipo Vulpus está emitiendo el pago de tu mueble vendido a tu cuenta bancaria registrada en nuestra plataforma.</p>
-                <P>Recuerda que en Vulpus no solo ahorramos dinero, también emisiones de CO2.</p>
+                <p>Gracias por ser parte de la comunidad WhalE, juntos estamos generando un cambio sostenible gracias al reúso de muebles.</p>
+                <P>Este mensaje es para informarte que el equipo WhalE está emitiendo el pago de tu mueble vendido a tu cuenta bancaria registrada en nuestra plataforma.</p>
+                <P>Recuerda que en WhalE no solo ahorramos dinero, tambié emisiones de CO2.</p>
                 <p>¡Te esperamos pronto!</p>
-                <p><strong>El equipo de Vulpus</strong></p>
+                <p><strong>El equipo de WhalE</strong></p>
               </body>
             </html>`
             await htmlnMailService('vulpusperu@gmail.com',req.user.email,subject1,text1)

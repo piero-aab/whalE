@@ -92,7 +92,7 @@ class AdminController {
       const email: string = customer?.email!;
 
       // Send email
-      const subject: string ="Vulpus: Producto Elimando";
+      const subject: string ="WhalE: Producto Elimando";
       const text: string = `<html>
                             <body>
                               <p><strong>Hola ${customer?.name}, Se ha eliminado el siguiente producto:</strong></p>
@@ -103,10 +103,10 @@ class AdminController {
                               <span style="margin-left: 50px;">${message}</span>
                               <p>Visita la web en: http://${headers.host}</p>
                               <p>Atentamente,</p>
-                              <p><strong>El equipo de Vulpus</strong></p>
+                              <p><strong>El equipo de WhalE</strong></p>
                             </body>
                           </html>`
-      await htmlnMailService("no-reply@starter.pe", email, subject, text);
+      await htmlnMailService("no-reply@whale.pe", email, subject, text);
       
       // Return to products page
       req.flash("success", 'Producto eliminado correctamente');

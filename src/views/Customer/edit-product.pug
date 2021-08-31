@@ -49,9 +49,9 @@ block content
                 .col-lg-10
                   select#type.form-control(type='text', v-model='product.type' placeholder='' name="type" required)
                     option(value="" selected hidden) --Elegir--
-                    option(value="¡Usado como nuevo!") ¡Usado como nuevo!
+                    option(value="¡Usado como nuevo!") ¡Como nuevo, sin mucho uso!
                     option(value="Buen estado") Buen estado
-                    option(value="Aceptable") Aceptable
+                    option(value="Aceptable") Usado, aceptable
               .form-group
                 label.col-lg-2.control-label(for='description' style="padding-top: 0") Cuéntanos sobre tu mueble
                 .col-lg-10
@@ -66,7 +66,7 @@ block content
               .form-group(v-for="( image, index ) in images" :image="image" :key="'image'+index")
                 label.col-lg-2.control-label(for='image' style="padding-top: 0") Imagen {{ index+1 }}
                 .col-lg-10.text-center
-                  img(:id="'image_'+index", :src=`image||"/images/vulpus/descarga.jpeg"` style="object-fit: cover; cursor:pointer; max-width:280px" :url=`'hidden_url_'+index` @click="cloudinaryWidget(index)")
+                  img(:id="'image_'+index", :src=`image||"/images/descarga.jpeg"` style="object-fit: cover; cursor:pointer; max-width:280px" :url=`'hidden_url_'+index` @click="cloudinaryWidget(index)")
                   input(type="hidden" :id=`'hidden_url_'+index` name="image" :value="image")
                   button.btn.btn-default(v-if="images.length>1" type='button' @click="deleteImage(index)" style="margin: 1rem") Eliminar
               .form-group(v-if="images.length<5")

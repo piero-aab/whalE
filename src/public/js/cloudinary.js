@@ -1,5 +1,5 @@
 const options = {
-    cloudName: 'vulpus',
+    cloudName: 'whale-unmsm',
     uploadPreset: 'ml_default',
     multiple: false,
     sources: ["local", "url", "camera", "facebook"],
