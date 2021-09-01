@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express'
 
 export function isAdmin( req: any, res: any, next: any){
   if(!req.user){
-    req.flash('info', 'Para comprar este mueble, crea una cuenta o inicia sesión');
+    req.flash('info', 'Debe ser administrador para acceder');
     return res.redirect('/login');
   }
   if(req.user.type == 0){
