@@ -51,8 +51,8 @@ const createProduct = Vue.createApp({
       if(price === 0) this.finalPrice = 0;
       if(!isNaN( price )&& price!=''){
         this.price = parseFloat(price.toFixed(2));
-        if(price < 800) this.finalPrice = this.round( price*1.09 );
-        else this.finalPrice = this.round(price*1.07);
+        if(price < 800) this.finalPrice = this.round( price*1.10 );
+        else this.finalPrice = this.round(price*1.05);
       }else if(this.price==''){
         this.finalPrice= 0
       }
