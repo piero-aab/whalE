@@ -83,7 +83,7 @@ class AccessController {
         return res.redirect('/mis-productos-ofertados');
       });
   
-    }catch(error){
+    }catch(error:any){
       req.flash('errors', error);
       return res.render('Access/login', {flag: 1})
       //return res.redirect('back');
@@ -129,7 +129,7 @@ class AccessController {
 
       req.flash("success", message);
       return res.redirect('/login');
-    } catch (error) {
+    } catch (error:any) {
       req.flash('errors', error.message);
       return res.redirect('back');
     }
@@ -159,7 +159,7 @@ class AccessController {
       req.flash('success', "Se modificó correctamente su contraseña.")
       return res.redirect('/login');
   
-    }catch(error){
+    }catch(error:any){
       req.flash('errors', error.message);
       return res.redirect('back');
     }
@@ -227,7 +227,7 @@ class AccessController {
       const response = await this.saveNewTokenInUserAccount(email);
       return response;
   
-    }catch(error){
+    }catch(error:any){
       console.log(error);
       throw Error(error);
     }
@@ -321,7 +321,7 @@ class AccessController {
         if( this.checkType(password) !== '2') throw 'La contraseña debe contener una mayúscula y minúscula.'
         if( password !== confirmPassword) throw 'Las contraseñas no coinciden';
         return password;
-    }catch(error){
+    }catch(error:any){
       throw new Error(error)
     }
   }

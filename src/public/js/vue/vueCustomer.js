@@ -79,7 +79,7 @@ const createProduct = Vue.createApp({
         // cambiar las credenciales al subir a producción
         api_key:"953288641213821",
         cloudName: 'whale-unmsm',
-        uploadPreset: 'fntocyvv',
+        uploadPreset: 'ml_default',
         multiple: false
       },(error, result) => {
           if (!error && result && result.event === "success") {
@@ -281,7 +281,7 @@ const editProduct = Vue.createApp({
         // cambiar las credenciales al subir a producción
         api_key:"953288641213821",
         cloudName: 'whale-unmsm',
-        uploadPreset: 'fntocyvv',
+        uploadPreset: 'ml_default',
         multiple: false
       },(error, result) => {
           if (!error && result && result.event === "success") {
