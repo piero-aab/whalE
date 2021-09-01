@@ -4,7 +4,7 @@ block content
 
   // ==========  Login wrapper ==========
   // ========================  Main header ========================
-  section.main-header(id='flag' data-flag = flag  data-users=users style='background-image:url(/images/PORTADA.webp)')
+  section.main-header(id='flag' data-flag = flag  data-users=users style='background-image:url(/images/header/PORTADA.webp)')
     header
       .container.text-center
         h2.h2.title ¡Bienvenido a WhalE!  
@@ -35,7 +35,7 @@ block content
                   .row
                     .col-md-12
                       .form-group
-                        input.form-control(type='text' name='email' placeholder='Ingresa tu correo electrónico' required='')
+                        input.form-control(type='email' name='email' placeholder='Ingresa tu correo electrónico' required='')
                     .col-md-12
                       .form-group
                         input#password.form-control(type='password' name='password' placeholder='Ingresa tu contraseña' required='' style='padding-right: 40px;')
@@ -48,7 +48,7 @@ block content
               .login-block.login-block-signup(id='sign-up')
                 row(style='display: flex; justify-content: space-between;')
                   .h4.col-md-9(style='padding:0 15px 0 0; margin-bottom: 0')
-                    | A UN PASO DE SUBIR TU MUEBLE
+                    | REGÍSTRATE
                   .col-md-3(style='padding:0;')
                     a.btn.btn-main.btn-xs.btn-login.pull-right(href='javascript:void(0);') INICIAR SESIÓN
                 hr
@@ -64,7 +64,7 @@ block content
                         input#phone.form-control(type='text' name='phone' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="9" maxlength="9" placeholder='Ingresa tu celular' onkeyup='validatePhone()' required='')
                     .col-md-12
                       .form-group
-                        label(for="age") Edad*
+                        label(for="age") Fecha nacimiento*
                         -
                           let today = new Date()
                           let todayYear = today.getFullYear()
@@ -99,6 +99,9 @@ block content
                       hr
                     .col-md-12
                       button.btn.btn-main.btn-block(type="submit") Registrarme
+              // /signup
+          // /login-wrapper
+        // /col-md-6
 
   script.
     function mostrarContrasena(id){
@@ -128,13 +131,17 @@ block content
 
       if(pssw.value != pssw2.value) {
         event.preventDefault();
-        badForm('Las contraseñan no coinciden');
+        badForm('Las contraseñas no coinciden');
+        validate = false;
+      }
+
+      if(pssw.value != pssw2.value) {
+        event.preventDefault();
+        badForm('Las contraseñas no coinciden');
         validate = false;
       }
 
       users.filter((u)=>{
-        console.log(u.email+"-->"+email)
-        console.log(u.email == email)
         if(u.email == email) {
           event.preventDefault();
           badForm('El correo ingresado ya esta registrado');
@@ -142,11 +149,19 @@ block content
         }
       })
       
+      const upperCase = /[A-Z][a-z]/;
+      if( !upperCase.test(pssw.value) ){
+        event.preventDefault();
+        badForm('La contraseña debe contener al menos una letra mayúscula y una minúscula');
+        form.usagePolicies.focus();
+        validate = false;
+      }
+
       if(!form.usagePolicies.checked) {
         event.preventDefault();
         badForm('Por favor debe aceptar las Políticas de uso');
         form.usagePolicies.focus();
         validate = false;
       }
-      return false;
+      return validate;
     }
