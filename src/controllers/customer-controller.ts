@@ -193,8 +193,8 @@ class CustomerController {
                 <p><strong>El equipo de WhalE</strong></p>
               </body>
             </html>`
-            await htmlnMailService('vulpusperu@gmail.com',req.user.email,subject1,text1)
-            await htmlnMailService('vulpusperu@gmail.com',product && product.customer?product.customer.email:'',subject2,text2).then(()=>{
+            await htmlnMailService('soporte@whale.com',req.user.email,subject1,text1)
+            await htmlnMailService('soporte@whale.com',product && product.customer?product.customer.email:'',subject2,text2).then(()=>{
               req.flash('success',"Producto Comprado");
               return res.render('Customer/payment-constancy',{product, payment,buyer, date});
             })
