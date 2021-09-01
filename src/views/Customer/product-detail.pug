@@ -73,10 +73,9 @@ block content
                         |  y {{subCategory.treeCo2xday}} árboles absorviendo CO₂ en un día.
           .col-md-8.col-sm-12.product-flex-gallery.pd-carrousel
             // === add to cart ===
-            if !product.customer.toString() == user._id.toString()
+            if user && product.customer.toString() !== user._id.toString()
               a.btn.btn-buy-v2(type="button" style='outline: none; padding: 10px 0' href=`/producto/${product._id}/comprar`)
                 span(style='font-size: 17px;') Comprar
-            // === product gallery ===
             .owl-product-gallery.open-popup-gallery
               div(v-for="(image, index) in productDetail.images")
                 a(:href='image')
