@@ -28,7 +28,7 @@ class HomeController{
       const subcategories = await SubCategory.find();
       const icons = ['bedroom', 'office', 'sofa', 'bar-set', 'dining-table', 'media-cabinet']
       
-      res.render('index', {categories, subcategories, products, icons, catSorted});
+      res.render('Home/index', {categories, subcategories, products, icons, catSorted});
 
     } catch (error) {
       return next(error);
