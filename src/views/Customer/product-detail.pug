@@ -4,7 +4,7 @@ block content
 
   // ==========  Login wrapper ==========
   // ========================  Main header ========================
-  section.main-header(style='background-image:url(/images/PORTADA.webp)')
+  section.main-header(style='background-image:url(/images/header/PORTADA.webp)')
     header
       .container.text-center
         h2.h2.title Detalle de producto
@@ -65,7 +65,7 @@ block content
                         |  a {{subCategory.cottonTshirt}} camisetas de algodón,
                   .info-box
                     span
-                      i.added(style='color: #5853FD; font-style: normal !important;')
+                      i.added(style='color: #44c6b6; font-style: normal !important;')
                         |  a {{subCategory.savedWater}} litros de agua ahorrada
                   .info-box
                     span
@@ -73,7 +73,10 @@ block content
                         |  y {{subCategory.treeCo2xday}} árboles absorviendo CO₂ en un día.
           .col-md-8.col-sm-12.product-flex-gallery.pd-carrousel
             // === add to cart ===
-            if !product.customer.toString() == user._id.toString()
+            if user && product.customer.toString() != user._id.toString()
+              a.btn.btn-buy-v2(type="button" style='outline: none; padding: 10px 0' href=`/producto/${product._id}/comprar`)
+                span(style='font-size: 17px;') Comprar
+            else if !user
               a.btn.btn-buy-v2(type="button" style='outline: none; padding: 10px 0' href=`/producto/${product._id}/comprar`)
                 span(style='font-size: 17px;') Comprar
             // === product gallery ===
@@ -84,9 +87,7 @@ block content
     .info
       .container
         .row
-          // === nav-tabs ===
           .col-md-12
-            // === tab-panes ===
             .tab-content
               // ============ tab #Specification ============
               #design.tab-pane.active(role='tabpanel')
