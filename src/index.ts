@@ -30,7 +30,6 @@ async function startProyect(): Promise<any> {
     console.clear()
     await connect();
     await startServer();
-
   }catch(error){
     console.log(error);
   }
