@@ -1,5 +1,4 @@
 import { startServer } from './loaders/express';
-import { connect } from './loaders/mongo';
 
 
 /*  --------------------------------------------------
