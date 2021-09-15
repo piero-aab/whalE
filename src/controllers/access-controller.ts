@@ -7,7 +7,7 @@ class AccessController {
   
   public getLogIn = async (req: Request, res: Response, next:NextFunction) => {
     try {
-      const users = await User.find().select({ email: 1, _id: 0})
+      const users = await User.findAll().select({ email: 1, _id: 0})
       res.render('Access/login',{users})
     } catch (error) {
       return next(error);
@@ -328,7 +328,7 @@ class AccessController {
 
   private async existToken(token: string): Promise<boolean> { 
     try{
-      if( await User.find({emailToken: token})){
+      if( await User.findAll({emailToken: token})){
         return true
       }else{
         return false

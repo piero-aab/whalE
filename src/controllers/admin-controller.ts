@@ -14,7 +14,7 @@ class AdminController {
       //const id = req.user._id
       //const where = {"customer": id}
 
-      const products = await Product.find({$or:[ {'status': 0}, {'status': 1}]}).populate("subCategory");
+      const products = await Product.findAll({$or:[ {'status': 0}, {'status': 1}]}).populate("subCategory");
 
       //const myProducts = await Product.find(WHERE, SELECT)
       res.render('Admin/all-products', {products});
@@ -26,8 +26,8 @@ class AdminController {
   public getSoldProducts = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-      const products = await Product.find({status:2}).populate("subCategory").populate("buyer").populate("customer");
-      const sellers = await User.find({$nor: [{sales: {$exists: false}},{sales: {$size: 0}}]});
+      const products = await Product.findAll({status:2}).populate("subCategory").populate("buyer").populate("customer");
+      const sellers = await User.findAll({$nor: [{sales: {$exists: false}},{sales: {$size: 0}}]});
       res.render('Admin/sold-products', {products,sellers});
     } catch (error) {
       return next(error);
@@ -37,7 +37,7 @@ class AdminController {
   public exportUsers = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-      const users = await User.find({type:{ $ne: 0 }}).populate({
+      const users = await User.findAll({type:{ $ne: 0 }}).populate({
         path: "purchases", model: Product, 
         populate : {
           path : 'subCategory',
