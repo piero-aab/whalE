@@ -19,12 +19,12 @@ block content
     .container
       header.hidden
         h3.h3.title Checkout - Step 1
-      .clearfix
-        .div(style='text-align: center;')
-          a.btn.btn-clean-dark(href='/admin/productos-vendidos' style='margin: 16px')
-            |  Muebles vendidos
-          a.btn.btn-main(href='/admin/productos-ofertados' style='margin: 16px')
-            |  Muebles ofertados
+      //- .clearfix
+      //-   .div(style='text-align: center;')
+      //-     a.btn.btn-clean-dark(href='/admin/productos-vendidos' style='margin: 16px')
+      //-       |  Muebles vendidos
+      //-     a.btn.btn-main(href='/admin/productos-ofertados' style='margin: 16px')
+      //-       |  Muebles ofertados
       .container
         .cart-wrapper
           .table-responsive.table-moble-copy(style='padding: 0 10px')
@@ -59,22 +59,22 @@ block content
                       | {{(product.status == 0) ? 'No' : 'Si'}}
                     td(scope="col" style='max-width: 140px;')
                       | {{product.subCategory.co2}} de CO₂ ahorrado
-                    td(scope="col")
-                      div(style="position:relative")
-                      label.dropdown-btn
-                        .dd-button
-                          | Opciones
-                        input#test.dd-input(type='checkbox')
-                        ul.dd-menu(v-if='index != products.length-1')
-                          li
-                            a(:href='"/admin/eliminar/"+product._id') Eliminar producto
-                          li
-                            a(:href='"/admin/detalle/"+product._id') Ver detalle
-                        ul.dd-menu(v-else style='top: -210%')
-                          li
-                            a(:href='"/admin/eliminar/"+product._id') Eliminar producto
-                          li
-                            a(:href='"/admin/detalle/"+product._id') Ver detalle
+                    //- td(scope="col")
+                    //-   div(style="position:relative")
+                    //-   label.dropdown-btn
+                    //-     .dd-button
+                    //-       | Opciones
+                    //-     input#test.dd-input(type='checkbox')
+                    //-     ul.dd-menu(v-if='index != products.length-1')
+                    //-       li
+                    //-         a(:href='"/admin/eliminar/"+product._id') Eliminar producto
+                    //-       li
+                    //-         a(:href='"/admin/detalle/"+product._id') Ver detalle
+                    //-     ul.dd-menu(v-else style='top: -210%')
+                    //-       li
+                    //-         a(href='"/admin/eliminar/"+product._id') Eliminar producto
+                    //-       li
+                    //-         a(:href='"/admin/detalle/"+product._id') Ver detalle
   script.
     let deleted = !{JSON.stringify(deleted)};
 
