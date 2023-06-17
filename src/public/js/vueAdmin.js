@@ -1,3 +1,20 @@
+const allUsers = Vue.createApp({
+  data(){
+    return{
+      users: []
+    }
+  },
+  mounted(){
+    let users = JSON.parse(document.getElementById("allUsers").getAttribute("data-allUsers"));
+    this.users = users
+    console.log(this.users)
+    
+  },
+
+})
+
+if(document.getElementById("allUsers")){const mountedAllUsers = allUsers.mount("#allUsers")}
+
 const allProducts = Vue.createApp({
   data(){
     return{

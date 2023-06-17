@@ -7,6 +7,20 @@ import {htmlnMailService} from '../loaders/nodeMailer'
 
 class AdminController {
 
+  public getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+
+      const users = await User.find({type:1});
+
+      //const myProducts = await Product.find(WHERE, SELECT)
+      console.log(users)
+      res.render('Admin/all-users', {users});
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   public getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
 
     try {

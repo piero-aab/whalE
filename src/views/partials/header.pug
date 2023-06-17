@@ -50,10 +50,13 @@ nav.navbar-fixed
           if user && (user.type==0)
             li
               a(href='/admin/productos-vendidos')
-                | Vendidos 
+                | Ventas 
             li
               a(href='/admin/productos-ofertados')
-                | En oferta
+                | Ofertas
+            li
+              a(href='/admin/usuarios-listar')
+                | Lista de usuarios
 
           if !user
             li

@@ -92,7 +92,13 @@ class AccessController {
 
   public logout = async (req: Request, res:Response, next:NextFunction) =>{
     try {
-      req.logout();
+      // req.logout();
+      req.logout((err: any) => {
+        if (err) {
+          // Manejar el error si es necesario
+        }
+        // Continuar con el flujo de la aplicación después del logout
+      });
       req.session.destroy((err: any) => {
         if (err) console.log('Error : Error al destruir la sesión, intente de nuevo en unos minutos.', err);
         res.redirect('/login');
