@@ -331,8 +331,62 @@ class CustomerController {
         complaint.images = complaint.image
       }
 
-      await Complaint.create(complaint)
-      console.log(complaint);
+      const data = await Complaint.create(complaint)
+      const id = data._id.toString()
+
+      const  { customerEmail } = complaint
+      const adminEmail = 'getab152@gmail.com'
+
+      const customerSubject: string = `Registro de queja ID: ${id.substring(id.length - 5)}`;
+      const adminSubject: string = `Aviso de nueva queja creada ID: ${id.substring(id.length - 5)}`;
+
+      const imagesHtml = complaint.images.map((image: any) => '<img src="' + image + '" style="max-height: 350px; margin: 16px; border-radius: 10px; box-shadow: 4px 5px 19px -3px rgba(0,0,0,0.32)" width="350" alt="">').join('\n')
+      
+      const customerText: string = `<html>
+                            <body>
+                              <p style="font-size:24px; margin-bottom:16px"> Hola ${complaint.customerName}, hemos recibido tu queja. </p>
+                              <p style="font-size:20px; margin: 16px 0"> Datos de la queja: </p>
+                              <p style="margin: 0 16px"><strong> Queja ID: ${id && id.substring(id.length - 5) } </strong></p>
+                              <p style="margin: 0 16px"><strong> Nombre:</strong> ${complaint && complaint.customerName!=''?complaint.customerName:''} </p>
+                              <p style="margin: 0 16px"><strong> Correo eléctronico:</strong> ${complaint && complaint.customerEmail!=''?complaint.customerEmail:''} </p>
+                              <p style="margin: 0 16px"><strong> Número de teléfono:</strong> ${complaint && complaint.customerPhone!=''?complaint.customerPhone:''} </p>
+                              <p style="margin: 0 16px"><strong> Motivo: </strong>${complaint && complaint.reason!=''?complaint.reason:''} </p>
+                              <p style="margin: 0 16px"><strong> Detalle de tu queja:</strong> ${complaint && complaint.details!=''?complaint.details:''} </p>
+                              <p style="margin: 0 16px"><strong> Posible solución: </strong>${complaint && complaint.pSolution!=''?complaint.pSolution:''} </p>
+                              <p style="margin: 0 16px 16px"><strong> Imágenes: </strong></p>
+                              <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                                ${imagesHtml}
+                              </div>
+
+                              <p>Atentamente,</p>
+                              <p><strong>El equipo de WhalE</strong></p>
+                            </body>
+                          </html>`
+
+        const adminText: string = `<html>
+                          <body>
+                            <p style="font-size:24px; margin-bottom:16px"> Nueva queja registrada </p>
+                            <p style="font-size:20px; margin: 16px 0"> Datos: </p>
+                            <p style="margin: 0 16px"><strong> Queja ID: ${id && id.substring(id.length - 5) } </strong></p>
+                            <p style="margin: 0 16px"><strong> Nombre:</strong> ${complaint && complaint.customerName!=''?complaint.customerName:''} </p>
+                            <p style="margin: 0 16px"><strong> Correo eléctronico:</strong> ${complaint && complaint.customerEmail!=''?complaint.customerEmail:''} </p>
+                            <p style="margin: 0 16px"><strong> Número de teléfono:</strong> ${complaint && complaint.customerPhone!=''?complaint.customerPhone:''} </p>
+                            <p style="margin: 0 16px"><strong> Motivo: </strong>${complaint && complaint.reason!=''?complaint.reason:''} </p>
+                            <p style="margin: 0 16px"><strong> Detalle de tu queja:</strong> ${complaint && complaint.details!=''?complaint.details:''} </p>
+                            <p style="margin: 0 16px"><strong> Posible solución: </strong>${complaint && complaint.pSolution!=''?complaint.pSolution:''} </p>
+                            <p style="margin: 0 16px 16px"><strong> Imágenes: </strong></p>
+                            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                              ${imagesHtml}
+                            </div>
+
+                            <p style="margin: 16px 16px 0">Atentamente,</p>
+                            <p><strong>El equipo de WhalE</strong></p>
+                          </body>
+                        </html>`
+      
+      await htmlnMailService("no-reply@whale.pe", customerEmail, customerSubject, customerText)
+      await htmlnMailService("no-reply@whale.pe", adminEmail, adminSubject, adminText)
+
       req.flash('success', 'Queja registrada')
       res.redirect('/');
     } catch (error) {
