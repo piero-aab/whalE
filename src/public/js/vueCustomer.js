@@ -133,6 +133,21 @@ const createProduct = Vue.createApp({
         e.preventDefault();
         return false; 
       }
+    },
+    validatePhotosComplaint(e){
+      if(this.images.includes("")){
+        
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Todos los campos de imágenes que has seleccionado deben estar llenos',
+          showConfirmButton: false,
+          timer: 3500
+        })
+        
+        e.preventDefault();
+        return false; 
+      }
     }
   }
 })

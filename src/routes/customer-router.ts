@@ -15,5 +15,7 @@ router.get('/compras/:id/status', [isUser], customerController.getPaymentStatus)
 router.post('/usuario/contacto/:id', [isUser], customerController.setContatInfo)
 router.get('/editar/:id', [isUser], customerController.getEditProduct)
 router.post('/editar/:id', [isUser], customerController.postEditProduct)
+router.get('/registrar-queja', customerController.getComplaint)
+router.post('/registrar-queja', customerController.postComplaint)
 
 export default router;

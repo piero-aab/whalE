@@ -5,6 +5,7 @@ import { htmlnMailService } from '../loaders/nodeMailer';
 import Category from '../models/Category'
 import Product from '../models/Product'
 import Payment from '../models/Payment'
+import Complaint from '../models/Complaint';
 import User from '../models/User'
 
 async function  formatDate(date:Date){
@@ -303,6 +304,39 @@ class CustomerController {
       return res.redirect('/mis-productos-ofertados');
     } catch (error) {
       return next(error);
+    }
+  }
+
+  public getComplaint = async (req: any, res: Response, next: NextFunction) => {
+
+    try {
+      res.render('Customer/new-complaint');
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  public postComplaint = async (req: any, res:Response, next: NextFunction) => {
+    
+    try {
+      const complaint = req.body
+      console.log(req.body, complaint)
+      let images = []
+
+      if(!Array.isArray(complaint.image)){
+        images.push(complaint.image);
+        complaint.images = images;
+      } 
+      else {
+        complaint.images = complaint.image
+      }
+
+      await Complaint.create(complaint)
+      console.log(complaint);
+      req.flash('success', 'Queja registrada')
+      res.redirect('/');
+    } catch (error) {
+      return next(error)
     }
   }
 

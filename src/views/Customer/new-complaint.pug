@@ -20,27 +20,27 @@ block content
             .form-horizontal(style="padding: 0 2rem")
               .form-group(style="padding: 2rem")
                 label.control-label(for="name" style="margin-bottom: 7px") ¿Cuál es tu nombre?
-                input#name.form-control(type='text' name='name' placeholder='Ingresa tus nombres y apellidos' maxlength="50" required='')
+                input#name.form-control(type='text' name='customerName' placeholder='Ingresa tus nombres y apellidos' maxlength="50" required='')
               .form-group(style="padding: 2rem")
                 label.control-label(for="email" style="margin-bottom: 7px") ¿Cuál es tu correo electrónico?
-                input#email.form-control(type='email' name='email' parsley-type="email" placeholder='Ingresa tu correo electrónico*' required='')
+                input#email.form-control(type='email' name='customerEmail' parsley-type="email" placeholder='Ingresa tu correo electrónico*' required='')
               .form-group(style="padding: 2rem")
                 label.control-label(for="phone" style="margin-bottom: 7px") ¿Cuál es tu número de teléfono?
-                input#phone.form-control(type='text' name='phone' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="9" maxlength="9" placeholder='Ingresa tu celular' onkeyup='validatePhone()' required='')
+                input#phone.form-control(type='text' name='customerPhone' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="9" maxlength="9" placeholder='Ingresa tu celular' required='')
               .form-group(style="padding: 2rem")
                 label.control-label(style="margin-bottom: 7px") ¿Cuál es el motivo de tu queja?
-                select#inputEmail5.form-control(type='text', placeholder='' name="type" required)
+                select#inputEmail5.form-control(type='text', placeholder='' name="reason" required)
                     option(value="" selected hidden) --Elegir--
-                    option(value="¡Usado como nuevo!") Producto diferente al comprado
-                    option(value="Buen estado") Producto defectuoso
-                    option(value="Aceptable") Problemas con el vendedor
-                    option(value="Aceptable") Retrado de envío
+                    option(value="Producto diferente al comprado") Producto diferente al comprado
+                    option(value="Producto defectuoso") Producto defectuoso
+                    option(value="Problemas con el vendedor") Problemas con el vendedor
+                    option(value="Retraso de envío") Retraso de envío
               .form-group(style="padding: 2rem")
                 label.control-label(style="margin-bottom: 7px") Por favor, bríndamos más detalles sobre tu queja
-                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' style="resize: vertical")
+                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' name='details' style="resize: vertical")
               .form-group(style="padding: 2rem")
                 label.control-label(style="margin-bottom: 7px") ¿Cómo esperas que se resuelva tu queja?
-                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' style="resize: vertical")
+                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' name='answer' style="resize: vertical")
               .form-group.text-center(style="padding: 1rem")
                 label.col-12.text-danger(style="padding: 2rem") Compártenos una o más fotos o capturas como evidencia de la queja*
 
@@ -55,4 +55,4 @@ block content
 
               .row
                 .col-lg-12.text-center(style="margin: 2rem 0; padding: 0")
-                  button.btn.btn-main(type='submit' style="width: 100%" @click="validatePhotos") Registrar queja
+                  button.btn.btn-main(type='submit' style="width: 100%" @click="validatePhotosComplaint") Registrar queja
