@@ -54,5 +54,7 @@ block content
                   button.btn.btn-clean-dark(type='button' @click="addImage" style="margin: 0rem") Agregar imagen
 
               .row
-                .col-lg-12.text-center(style="margin: 2rem 0; padding: 0")
-                  button.btn.btn-main(type='submit' style="width: 100%" @click="validatePhotosComplaint") Registrar queja
+                .col-lg-6.text-center(style="margin: 2rem 0; padding: 5px")
+                  a.btn.btn-main(href='/'  style='margin-right: 1rem; width: 100%; background-color:#FE4D13') Regresar
+                .col-lg-6.text-center(style="margin: 2rem 0; padding: 5px")
+                  button.btn.btn-main(type='submit' style="width: 100%; " @click="validatePhotosComplaint") Registrar queja

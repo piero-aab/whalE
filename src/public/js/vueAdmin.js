@@ -158,6 +158,7 @@ const complaintDetail = Vue.createApp({
       customerPhone: '',
       reason: '',
       details: '',
+      date: '',
       pSolution: '',
       answer: '',
       images: []
@@ -172,9 +173,17 @@ const complaintDetail = Vue.createApp({
     this.details = complaint.details
     this.pSolution = complaint.pSolution
     this.images = complaint.images
+    this.date = this.formatDate(complaint.createdAt)
     this.answer = complaint.answer
   },
-  methods: {}
+  methods: {
+    formatDate(date) {
+      const newDate = new Date(date);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return newDate.toLocaleDateString('es-ES', options)
+    }
+  }
+
 })
 
 if(document.getElementById("complaintDetail")){ const mountedComplaintDetails = complaintDetail.mount("#complaintDetail") }

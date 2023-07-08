@@ -191,7 +191,7 @@ class AdminController {
       const { id } = req.params
       const complaint = await Complaint.findById(id);
 
-      res.render('Admin/complaint-detail', { complaint })
+      res.render('Admin/complaint-detail', { complaint, id})
     } catch (error) {
       return next(error);
     }
