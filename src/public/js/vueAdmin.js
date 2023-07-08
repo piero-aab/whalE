@@ -134,7 +134,6 @@ const allComplaints = Vue.createApp({
         statusTxt: this.formatStatus(complaint.status)
       }
     })
-    console.log(this.complaints)
   },
   methods: {
     formatDate(date) {
@@ -143,9 +142,39 @@ const allComplaints = Vue.createApp({
       return newDate.toLocaleDateString('es-ES', options)
     },
     formatStatus(status) {
-      return status === 0 ? 'Atendido' : ( status === 1 ? 'Por atender' : '-')
+      return status === 1 ? 'Atendido' : ( status === 0 ? 'Por atender' : '-')
     }
   }
 })
 
 if(document.getElementById("allComplaints")){ const mountedAllComplaints = allComplaints.mount("#allComplaints") }
+
+// COMPLAINT DETAIL
+const complaintDetail = Vue.createApp({
+  data(){
+    return{
+      customerName: '',
+      customerEmail: '',
+      customerPhone: '',
+      reason: '',
+      details: '',
+      pSolution: '',
+      answer: '',
+      images: []
+    }
+  },
+  mounted() {
+    let complaint = JSON.parse(document.getElementById("complaintDetail").getAttribute("data-complaint"));
+    this.customerName = complaint.customerName
+    this.customerEmail = complaint.customerEmail
+    this.customerPhone = complaint.customerPhone
+    this.reason = complaint.reason
+    this.details = complaint.details
+    this.pSolution = complaint.pSolution
+    this.images = complaint.images
+    this.answer = complaint.answer
+  },
+  methods: {}
+})
+
+if(document.getElementById("complaintDetail")){ const mountedComplaintDetails = complaintDetail.mount("#complaintDetail") }

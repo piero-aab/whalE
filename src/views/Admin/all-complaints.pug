@@ -39,7 +39,7 @@ block content
                       | {{complaint.customerName}}
                     td(scope="col")
                       | {{complaint.reason}}
-                    td(scope="col")
+                    td(scope="col", :class="complaint.status === 0 ? 'not-attend-color' : 'attend-color'")
                       | {{complaint.statusTxt}}
                     td(scope="col")
                       div(style="position:relative")
@@ -51,13 +51,19 @@ block content
                           li
                             a(:href='"/admin/responder-queja/"+complaint._id') Responder queja
                           li
-                            a(:href='"/admin/detalle/"+complaint._id') Ver detalle
+                            a(:href='"/admin/detalle-queja/"+complaint._id') Ver detalle
                         ul.dd-menu(v-else style='top: -210%')
                           li
                             a(:href='"/admin/responder-queja/"+complaint._id') Responder queja
                           li
-                            a(:href='"/admin/detalle/"+complaint._id') Ver detalle
+                            a(:href='"/admin/detalle-queja/"+complaint._id') Ver detalle
   style.
     .table-mod {
       overflow-x: inherit !important;
+    }
+    .attend-color {
+      color: #0a9a19;
+    }
+    .not-attend-color {
+      color: #ff9000;
     }

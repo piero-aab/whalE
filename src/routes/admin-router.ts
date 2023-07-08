@@ -14,5 +14,6 @@ router.post('/eliminar/:id', [isAdmin], adminController.postProductDelete)
 router.get('/lista-quejas', [isAdmin], adminController.getAllComplaints)
 router.get('/responder-queja/:id', [isAdmin], adminController.getAnswerComplaint)
 router.post('/responder-queja/:id', [isAdmin], adminController.postAnswerComplaint)
+router.get('/detalle-queja/:id', [isAdmin], adminController.getComplaintDetail)
 
 export default router;

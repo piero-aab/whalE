@@ -8,6 +8,7 @@ export interface IComplaint extends Document {
   reason: string;
   details: string;
   answer: string;
+  pSolution: string;
   images: [string];
   status: number;
 };
@@ -18,8 +19,9 @@ const complaintSchema = new Schema <IComplaint>({
   customerPhone: Number,
   reason: { type: String },
   details: { type: String },
-  answer: { type: String },
+  answer: { type: String, default: '' },
   images: [String],
+  pSolution: { type: String },
   //status: 0 no visible/ 1 visible/ 2 vendido/ 3 eliminado
   status: { type: Number, default: 0 },
 }, { timestamps: true });

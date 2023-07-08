@@ -152,12 +152,11 @@ class AdminController {
     }
   }
 
-  
   public postAnswerComplaint = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params
       const { answer } = req.body;
-      const complaint: any = await Complaint.findByIdAndUpdate(id, { status: 0, answer });
+      const complaint: any = await Complaint.findByIdAndUpdate(id, { status: 1, answer });
       
       const email = complaint.customerEmail;
 
@@ -182,6 +181,17 @@ class AdminController {
       req.flash("success", 'Queja respondida correctamente');
       return res.redirect('/admin/lista-quejas');
 
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  public getComplaintDetail = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params
+      const complaint = await Complaint.findById(id);
+
+      res.render('Admin/complaint-detail', { complaint })
     } catch (error) {
       return next(error);
     }
