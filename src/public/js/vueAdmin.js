@@ -111,3 +111,41 @@ const productDetail = Vue.createApp({
 })
 
 if(document.getElementById("productDetail")){const mountedProductDetail = productDetail.mount("#productDetail")}
+
+
+// ALL COMPLAINS
+const allComplaints = Vue.createApp({
+  data(){
+    return{
+      complaints: [],
+      isActive: false
+    }
+  },
+  mounted() {
+    let complaints = JSON.parse(document.getElementById("allComplaints").getAttribute("data-allComplaints"));
+
+    this.isActive = !!(complaints.length === 1)
+
+    this.complaints = complaints.map((complaint, index) => {
+      return {
+        ...complaint,
+        index: index + 1,
+        dateTxt: this.formatDate(complaint.createdAt),
+        statusTxt: this.formatStatus(complaint.status)
+      }
+    })
+    console.log(this.complaints)
+  },
+  methods: {
+    formatDate(date) {
+      const newDate = new Date(date);
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return newDate.toLocaleDateString('es-ES', options)
+    },
+    formatStatus(status) {
+      return status === 0 ? 'Atendido' : ( status === 1 ? 'Por atender' : '-')
+    }
+  }
+})
+
+if(document.getElementById("allComplaints")){ const mountedAllComplaints = allComplaints.mount("#allComplaints") }

@@ -1,0 +1,63 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Listado de Quejas
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/admin/usuarios-listar') Listado de Quejas
+            
+  section.checkout#allComplaints(data-allComplaints = complaints)
+    .container
+      .container
+        .cart-wrapper
+          .table-responsive.table-moble-copy(style='padding: 0 10px', :class="{ 'table-mod': isActive }")
+            h4(v-if='complaints.length == 0' style='text-align: center; margin: 26px;') Aun no hay clientes registrados
+            table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") Id
+                    td(scope="col") Fecha 
+                    td(scope="col") Nombre de la persona
+                    td(scope="col") Motivo
+                    td(scope="col") Estado
+                tbody
+                  tr(v-for="(complaint, index) in complaints")
+                    td(scope="col")
+                      | {{complaint.index}}
+                    td(scope="col")
+                      | {{complaint.dateTxt}} 
+                    td(scope="col")
+                      | {{complaint.customerName}}
+                    td(scope="col")
+                      | {{complaint.reason}}
+                    td(scope="col")
+                      | {{complaint.statusTxt}}
+                    td(scope="col")
+                      div(style="position:relative")
+                      label.dropdown-btn
+                        .dd-button
+                          | Opciones
+                        input#test.dd-input(type='checkbox')
+                        ul.dd-menu(v-if='index != complaints.length-1')
+                          li
+                            a(:href='"/admin/responder-queja/"+complaint._id') Responder queja
+                          li
+                            a(:href='"/admin/detalle/"+complaint._id') Ver detalle
+                        ul.dd-menu(v-else style='top: -210%')
+                          li
+                            a(:href='"/admin/responder-queja/"+complaint._id') Responder queja
+                          li
+                            a(:href='"/admin/detalle/"+complaint._id') Ver detalle
+  style.
+    .table-mod {
+      overflow-x: inherit !important;
+    }
