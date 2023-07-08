@@ -93,7 +93,7 @@ block content
               .form-group
                 label.col-lg-2.control-label(for='bankCC' style="padding-top: 0") Código de Cuenta (CC)
                 .col-lg-10
-                  input#inputEmail1.form-control(type='text', placeholder='El CC debe tener 20 carácteres',oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" pattern=".{20,}" minlength="20" maxlength="20" value=user.bankData.bankCC name="bankCC" required) 
+                  input#inputEmail1.form-control(type='text', placeholder='El CC debe mínimo 8 carácteres',oninput="this.value=this.value.replace(/[^0-9\.]/g,'');" pattern=".{8,20}" minlength="20" maxlength="20" value=user.bankData.bankCC name="bankCC" required) 
               .form-group
                 .col-lg-12.text-center(style="margin: 2rem")
                   button.btn.btn-main(type='submit' style="margin: 1rem" @click="validatePhotos") Publicar mueble

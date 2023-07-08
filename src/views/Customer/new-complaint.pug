@@ -1,0 +1,58 @@
+extends ../layouts/main
+
+block content
+  section.main-header(style='background-image:url(/images/PORTADA.webp)')
+      header
+        .container.text-center
+          h2.h2.title Formulario de Quejas
+          ol.breadcrumb.breadcrumb-inverted
+            li
+              a(href='/')
+                span.icon.icon-home
+            li
+              a.active(href='javascript: void(0)') Quejas
+  section.login-wrapper.login-wrapper-page
+    .container
+      .cart-wrapper
+        form#create-product.panel.panel-default(method="POST" data-categories=categories)
+          .panel-heading Registrar una queja
+          .panel-body
+            .form-horizontal(style="padding: 0 2rem")
+              .form-group(style="padding: 2rem")
+                label.control-label(for="name" style="margin-bottom: 7px") ¿Cuál es tu nombre?
+                input#name.form-control(type='text' name='name' placeholder='Ingresa tus nombres y apellidos' maxlength="50" required='')
+              .form-group(style="padding: 2rem")
+                label.control-label(for="email" style="margin-bottom: 7px") ¿Cuál es tu correo electrónico?
+                input#email.form-control(type='email' name='email' parsley-type="email" placeholder='Ingresa tu correo electrónico*' required='')
+              .form-group(style="padding: 2rem")
+                label.control-label(for="phone" style="margin-bottom: 7px") ¿Cuál es tu número de teléfono?
+                input#phone.form-control(type='text' name='phone' oninput="this.value=this.value.replace(/[^0-9]/g,'');" minlength="9" maxlength="9" placeholder='Ingresa tu celular' onkeyup='validatePhone()' required='')
+              .form-group(style="padding: 2rem")
+                label.control-label(style="margin-bottom: 7px") ¿Cuál es el motivo de tu queja?
+                select#inputEmail5.form-control(type='text', placeholder='' name="type" required)
+                    option(value="" selected hidden) --Elegir--
+                    option(value="¡Usado como nuevo!") Producto diferente al comprado
+                    option(value="Buen estado") Producto defectuoso
+                    option(value="Aceptable") Problemas con el vendedor
+                    option(value="Aceptable") Retrado de envío
+              .form-group(style="padding: 2rem")
+                label.control-label(style="margin-bottom: 7px") Por favor, bríndamos más detalles sobre tu queja
+                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' style="resize: vertical")
+              .form-group(style="padding: 2rem")
+                label.control-label(style="margin-bottom: 7px") ¿Cómo esperas que se resuelva tu queja?
+                textarea.form-control#inputEmail7(type='text',rows="7" placeholder='' style="resize: vertical")
+              .form-group.text-center(style="padding: 1rem")
+                label.col-12.text-danger(style="padding: 2rem") Compártenos una o más fotos o capturas como evidencia de la queja*
+
+              .form-group(v-for="( image, index ) in images" :image="image" :key="'image'+index")
+                .text-center
+                  img(:id="'image_'+index", :src=`image||"/images/descarga.jpeg"` style="object-fit: cover; cursor:pointer; max-width:280px" :url=`'hidden_url_'+index` @click="cloudinaryWidget(index)")
+                  input(type="hidden" :id=`'hidden_url_'+index` name="image" :value="image")
+                  button.col-12.btn.btn-default(v-if="images.length>1" type='button' @click="deleteImage(index)" style="margin: 1rem") Eliminar
+              .form-group(v-if="images.length<5")
+                .col-lg-12.text-center
+                  button.btn.btn-clean-dark(type='button' @click="addImage" style="margin: 0rem") Agregar imagen
+
+              .row
+                .col-lg-12.text-center(style="margin: 2rem 0; padding: 0")
+                  button.btn.btn-main(type='submit' style="width: 100%" @click="validatePhotos") Registrar queja
