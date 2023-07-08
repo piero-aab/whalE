@@ -1,0 +1,44 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Usuarios
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a.active(href='/admin/usuarios-listar') Lista de Usuarios
+            
+  section.checkout#allUsers(data-allUsers = users)
+    .container
+      header.hidden
+        h3.h3.title Checkout - Step 1
+      .clearfix
+        .div(style='text-align: center;')
+          a.btn.btn-clean-dark(href='/admin/exportar/usuarios' style='margin: 16px')
+            |  Exportar usuarios
+      .container
+        .cart-wrapper
+          .table-responsive.table-moble-copy(style='padding: 0 10px')
+            h4(v-if='users.length == 0' style='text-align: center; margin: 26px;') Aun no hay clientes registrados
+            table.table.table-hover.mt-5.table-centered.dt-responsive(v-else)
+                thead
+                  tr(style='font-weight: 500;')
+                    td(scope="col") Nombre
+                    td(scope="col") Celular
+                    td(scope="col") Correo 
+                tbody
+                  tr(v-for="(user, index) in users")
+                    td(scope="col")
+                      | {{user.name}}
+                    td(scope="col")
+                      | {{user.phone}}
+                    td(scope="col")
+                      | {{user.email}}
+

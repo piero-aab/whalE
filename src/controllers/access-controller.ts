@@ -92,6 +92,7 @@ class AccessController {
 
   public logout = async (req: Request, res:Response, next:NextFunction) =>{
     try {
+      // req.logout();
       req.logout((err: any) => {
         if (err) {
           // Manejar el error si es necesario

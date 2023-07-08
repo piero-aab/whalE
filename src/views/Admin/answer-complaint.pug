@@ -1,0 +1,42 @@
+extends ../layouts/main
+
+block content
+
+  // ==========  Login wrapper ==========
+  // ========================  Main header ========================
+  section.main-header(style='background-image:url(/images/PORTADA.webp)')
+    header
+      .container.text-center
+        h2.h2.title Responder queja
+        ol.breadcrumb.breadcrumb-inverted
+          li
+            a(href='/')
+              span.icon.icon-home
+          li
+            a(href='/admin/lista-quejas') Listado de quejas
+          li
+            a.active Responder queja
+            
+  section#answerComplaint
+    .container(style='max-width: 640px;')
+      form(method="POST" onsubmit='return checkForm(this)')
+        .form-group
+          label(for='answer-complaint') Ingresa una respuesta para resolver la queja*
+          textarea#answer-complaint.form-control(rows='4' name='answer')
+        .text-center
+          a.btn.btn-main(href='/admin/productos-ofertados'  style='margin-right: 1rem;') Cancelar
+          button.btn.btn-main(type='submit' style='margin-left: 1rem;') Responder
+
+  script.
+    function checkForm(form){
+
+      let answer = document.getElementById('answer-complaint').value.trim();
+
+      if(!answer) {
+        event.preventDefault();
+        badForm('Debe llenar el campo correctamente.');
+        return false;
+      }
+      
+      return true;
+    }

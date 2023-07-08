@@ -4,8 +4,23 @@ import Product from '../models/Product';
 import SubCategory from '../models/SubCategory';
 import {productsPerUser,deleteFile} from '../loaders/excelJS';
 import {htmlnMailService} from '../loaders/nodeMailer'
+import Complaint from '../models/Complaint';
 
 class AdminController {
+
+  public getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+
+      const users = await User.find({type:1});
+
+      //const myProducts = await Product.find(WHERE, SELECT)
+      console.log(users)
+      res.render('Admin/all-users', {users});
+    } catch (error) {
+      return next(error);
+    }
+  }
 
   public getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -117,7 +132,60 @@ class AdminController {
     }
   }
 
+  public getAllComplaints = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const complaints = await Complaint.find();
+      res.render('Admin/all-complaints', { complaints });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  public getAnswerComplaint = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params
+      const complaint = await Complaint.findById(id);
+
+      res.render('Admin/answer-complaint', { complaint })
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   
+  public postAnswerComplaint = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params
+      const { answer } = req.body;
+      const complaint: any = await Complaint.findByIdAndUpdate(id, { status: 0, answer });
+      
+      const email = complaint.customerEmail;
+
+      // Send email
+      const subject: string ="WhalE: Tenemos una respuesta a tu queja";
+      const text: string = `<html>
+                            <body>
+                              <p><strong> Hola ${complaint.customerName}, tenemos una respuesta para tu queja: </strong></p>
+                              ${complaint && complaint.images ? '<img src="' + complaint.images[0] + '" style="max-height: 350px;" width="350" alt="">' : ''}
+                              <p><strong> Queja ID: ${id && id.substring(id.length - 5) } </strong></p>
+                              <span style="margin-left: 50px;">Motivo: ${complaint && complaint.reason!=''?complaint.reason:''} </span>
+                              <p><strong>Detalle de tu queja:</strong> ${complaint && complaint.details!=''?complaint.details:''} </p>
+                              <span style="margin-left: 50px; color: blue">Respuesta a tu queja: ${answer} </span>
+
+                              <p>Atentamente,</p>
+                              <p><strong>El equipo de WhalE</strong></p>
+                            </body>
+                          </html>`
+      await htmlnMailService("no-reply@whale.pe", email, subject, text);
+      console.log(email, text, complaint);
+      
+      req.flash("success", 'Queja respondida correctamente');
+      return res.redirect('/admin/lista-quejas');
+
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 const adminController = new AdminController();

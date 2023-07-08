@@ -50,9 +50,13 @@ nav.navbar-fixed
           if user && (user.type==0)
             li
               a(href='/admin/productos-vendidos')
-                | Vendidos 
+                | Ventas 
             li
               a(href='/admin/productos-ofertados')
+                | Ofertas
+            li
+              a(href='/admin/usuarios-listar')
+                | Lista de usuarios
                 | En oferta
           
           li
@@ -65,6 +69,10 @@ nav.navbar-fixed
 
     .login-wrapper
       .h4 Opciones
+      if user && (user.type===0)
+        a.link-primary.link-offset-2.link-underline-opacity-100-hover.custom-link(href='/admin/lista-quejas') Lista de Quejas
+      if user && (user.type===1)
+        a.link-primary.link-offset-2.link-underline-opacity-100-hover.custom-link(href='/crear-producto') Crear producto
       a.btn.btn-default(href='/salir') Cerrar sesión
   style(scoped='').
     .style-logo {
@@ -75,4 +83,8 @@ nav.navbar-fixed
       .style-logo {
         margin: 0px 5px 0;
       }
+    }
+    .custom-link {
+      cursor: pointer;
+      font-size: 16px !important;
     }
